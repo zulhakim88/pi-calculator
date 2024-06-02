@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import {
     createUserWithEmailAndPassword,
+    updateProfile,
     signInWithEmailAndPassword,
     signOut,
     onAuthStateChanged,
@@ -23,9 +24,11 @@ const UserContext = createContext({} as AuthStateContext)
 export const AuthContextProvider = ({ children }: ChildrenElement) => {
     const [user, setUser] = useState<FirebaseUser | null>(null)
 
-    const registerUser = async ({ email, password }: UserAttribute) => {
+    const registerUser = async ({ firstName, lastName, email, password }: UserAttribute) => {
         try {
-            return await createUserWithEmailAndPassword(auth, email, password)
+            const test = await createUserWithEmailAndPassword(auth, email, password)
+            await updateProfile(test.user, { displayName: `${firstName} ${lastName}` })
+            return test
         } catch (error: any) {
             if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
                 throw new Error("The Email has been registered!")
@@ -66,6 +69,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 
     useEffect(() => {
         const checkLoginStatus = onAuthStateChanged(auth, (currentUser) => {
+            console.log(currentUser)
             setUser(currentUser)
         })
         return () => {

@@ -3,6 +3,8 @@ export interface ChildrenElement {
 }
 
 export interface UserAttribute {
+    firstName?: string,
+    lastName?: string,
     email: string,
     password: string,
     confirmPassword?: string

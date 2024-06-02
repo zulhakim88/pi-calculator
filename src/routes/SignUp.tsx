@@ -8,7 +8,7 @@ import { UserAuth } from '../context/AuthContext'
 import { UserAttribute } from '../lib/types'
 
 const SignUp = (): JSX.Element => {
-  const [registerForm, setRegisterForm] = useState<UserAttribute>({ email: "", password: "", confirmPassword: "" })
+  const [registerForm, setRegisterForm] = useState<UserAttribute>({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "" })
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -59,6 +59,14 @@ const SignUp = (): JSX.Element => {
         <div className="p-2 flex justify-center space-x-1"><p>Already have an account?</p><Link to="/" className="underline text-blue-500">Sign in!</Link></div>
       </div>
       <form onSubmit={handleFormSubmit} className="w-full">
+        <div className="flex flex-col py-2">
+          <label className="py-2 font-medium">First Name</label>
+          <input onChange={handleInput} className="border p-3 rounded-lg" type="text" name="firstName" />
+        </div>
+        <div className="flex flex-col py-2">
+          <label className="py-2 font-medium">Last Name</label>
+          <input onChange={handleInput} className="border p-3 rounded-lg" type="text" name="lastName" />
+        </div>
         <div className="flex flex-col py-2">
           <label className="py-2 font-medium">Email Address</label>
           <input onChange={handleInput} className="border p-3 rounded-lg" type="email" name="email" />

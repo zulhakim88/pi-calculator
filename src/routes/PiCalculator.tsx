@@ -18,7 +18,7 @@ const PiCalculator = (): JSX.Element => {
   }
   return (
     <div className="max-w-[700px] mx-auto my-16 p-4">
-      <h1 className="text-center text-2xl font-bold py-2">Welcome {user && user.email}!</h1>
+      <h1 className="text-center text-2xl font-bold py-2">Welcome {user && user.displayName}!</h1>
       <button onClick={handleLogout} className="border-blue-400 bg-blue-400 hover:bg-blue-600 w-full p-4 my-2 text-white cursor-pointer rounded-lg">Logout</button>
     </div>
 
