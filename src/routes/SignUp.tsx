@@ -26,7 +26,13 @@ const SignUp = (): JSX.Element => {
     e.preventDefault()
     setError("")
     setLoading(true)
-    if ((registerForm.email || registerForm.password || registerForm.confirmPassword) === "") {
+    if (
+      (
+        registerForm.firstName ||
+        registerForm.lastName ||
+        registerForm.email ||
+        registerForm.password ||
+        registerForm.confirmPassword) === "") {
       setError("One or more fields are empty!")
       setLoading(false)
       return
