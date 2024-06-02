@@ -26,6 +26,11 @@ const SignIn = (): JSX.Element => {
     e.preventDefault()
     setError("")
     setLoading(true)
+    if ((loginForm.email || loginForm.password) === "") {
+      setError("One or more fields is empty!")
+      setLoading(false)
+      return
+    }
     try {
       await login(loginForm)
       console.log('Successfully logged in!!')

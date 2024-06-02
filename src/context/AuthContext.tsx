@@ -50,6 +50,9 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
             if (error.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
                 throw new Error("Invalid User!")
             }
+            if (error.code === AuthErrorCodes.INVALID_EMAIL) {
+                throw new Error("Invalid User!")
+            }
             if (error.code === AuthErrorCodes.NETWORK_REQUEST_FAILED) {
                 throw new Error("Service is temporarily unavailable!")
             }
