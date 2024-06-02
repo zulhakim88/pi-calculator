@@ -6,3 +6,7 @@ export interface User {
     password2?: string,
     accessToken?: string
 }
+
+export interface ChildrenElement {
+    children: JSX.Element | JSX.Element[]
+}

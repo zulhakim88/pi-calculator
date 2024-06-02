@@ -3,28 +3,30 @@ import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
     signOut,
-    onAuthStateChanged
+    onAuthStateChanged,
+    User as FirebaseUser,
+    UserCredential as FirebaseUserCredential
 } from 'firebase/auth'
 import { auth } from '../firebase'
-import { User } from '../lib/types'
+import { ChildrenElement } from '../lib/types'
 
-const UserContext = createContext({})
+interface AuthStateContext {
+    user: FirebaseUser | null,
+    registerUser: ({ email, password }: { email: string, password: string }) => Promise<FirebaseUserCredential>
+    login: ({ email, password }: { email: string, password: string }) => Promise<FirebaseUserCredential>
+    logout: () => Promise<void>
+}
 
-const DefaultUser: User = {
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: ""
-  }
+const UserContext = createContext({} as AuthStateContext)
 
-export const AuthContextProvider = ({ children }: any) => {
-    const [user, setUser] = useState(DefaultUser)
-    const registerUser = (form: User) => {
-        return createUserWithEmailAndPassword(auth, form.email, form.password)
+export const AuthContextProvider = ({ children }: ChildrenElement) => {
+    const [user, setUser] = useState<FirebaseUser | null>(null)
+    const registerUser = ({ email, password }: { email: string, password: string }) => {
+        return createUserWithEmailAndPassword(auth, email, password)
     }
 
-    const login = (form: User) => {
-        return signInWithEmailAndPassword(auth, form.email, form.password)
+    const login = ({ email, password }: { email: string, password: string }) => {
+        return signInWithEmailAndPassword(auth, email, password)
     }
 
     const logout = () => {
@@ -32,14 +34,14 @@ export const AuthContextProvider = ({ children }: any) => {
     }
 
     useEffect(() => {
-        const checkLoginStatus = onAuthStateChanged(auth, (currentUser: any) => {
+        const checkLoginStatus = onAuthStateChanged(auth, (currentUser) => {
             console.log(currentUser)
             setUser(currentUser)
         })
         return () => {
             checkLoginStatus();
         }
-    },[])
+    }, [])
 
     return (
         <UserContext.Provider value={{ registerUser, user, logout, login }}>

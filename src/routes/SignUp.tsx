@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {
   Link,
+  Navigate,
   useNavigate
 } from 'react-router-dom'
 import { User } from '../lib/types'
@@ -12,13 +13,13 @@ const DefaultRegisterForm: User = {
   password2: ""
 }
 
-const SignUp = () => {
+const SignUp = (): JSX.Element => {
   const [registerForm, setRegisterForm] = useState<User>(DefaultRegisterForm)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
   const navigate = useNavigate()
-  const { registerUser }: any = UserAuth()
+  const { registerUser, user }: any = UserAuth()
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterForm(prev => ({
@@ -59,6 +60,10 @@ const SignUp = () => {
       }
       setLoading(false)
     }
+  }
+
+  if (user) {
+    return <Navigate to="/picalculator" />
   }
 
   return (
