@@ -4,22 +4,16 @@ import {
   Navigate,
   useNavigate
 } from 'react-router-dom'
-import { User } from '../lib/types'
 import { UserAuth } from '../context/AuthContext'
-
-const DefaultRegisterForm: User = {
-  email: "",
-  password: "",
-  password2: ""
-}
+import { FormAttribute } from '../lib/types'
 
 const SignUp = (): JSX.Element => {
-  const [registerForm, setRegisterForm] = useState<User>(DefaultRegisterForm)
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [registerForm, setRegisterForm] = useState<FormAttribute>({ email: "", password: "", confirmPassword: "" })
+  const [error, setError] = useState<string>("")
+  const [loading, setLoading] = useState<boolean>(false)
 
   const navigate = useNavigate()
-  const { registerUser, user }: any = UserAuth()
+  const { registerUser, user } = UserAuth()
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterForm(prev => ({
@@ -32,12 +26,12 @@ const SignUp = (): JSX.Element => {
     e.preventDefault()
     setError("")
     setLoading(true)
-    if ((registerForm.email || registerForm.password || registerForm.password2) === "") {
+    if ((registerForm.email || registerForm.password || registerForm.confirmPassword) === "") {
       setError("One or more fields are empty!")
       setLoading(false)
       return null
     }
-    if (registerForm.password !== registerForm.password2) {
+    if (registerForm.password !== registerForm.confirmPassword) {
       setError('Password did not matched!')
       setLoading(false)
       return null
@@ -48,7 +42,6 @@ const SignUp = (): JSX.Element => {
       setLoading(false)
       navigate('/picalculator')
     } catch (e: any) {
-      console.log('Error:', e.code)
       if (e.code === "auth/email-already-in-use") {
         setError("The Email has been registered!")
       } else if (e.code === "auth/invalid-email") {
@@ -85,7 +78,7 @@ const SignUp = (): JSX.Element => {
         </div>
         <div className="flex flex-col py-2">
           <label className="py-2 font-medium">Confirm Password</label>
-          <input onChange={handleInput} className="border p-3 rounded-lg" type="password" name="password2" />
+          <input onChange={handleInput} className="border p-3 rounded-lg" type="password" name="confirmPassword" />
         </div>
         {
           loading ?

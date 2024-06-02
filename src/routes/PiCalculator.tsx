@@ -3,7 +3,7 @@ import { UserAuth } from '../context/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
 const PiCalculator = (): JSX.Element => {
-  const { user, logout }: any = UserAuth()
+  const { user, logout } = UserAuth()
 
   const navigate = useNavigate()
 

@@ -5,7 +5,8 @@ import {
     signOut,
     onAuthStateChanged,
     User as FirebaseUser,
-    UserCredential as FirebaseUserCredential
+    UserCredential as FirebaseUserCredential,
+    AuthErrorCodes
 } from 'firebase/auth'
 import { auth } from '../firebase'
 import { ChildrenElement } from '../lib/types'
@@ -21,16 +22,29 @@ const UserContext = createContext({} as AuthStateContext)
 
 export const AuthContextProvider = ({ children }: ChildrenElement) => {
     const [user, setUser] = useState<FirebaseUser | null>(null)
-    const registerUser = ({ email, password }: { email: string, password: string }) => {
-        return createUserWithEmailAndPassword(auth, email, password)
+
+    const registerUser = async ({ email, password }: { email: string, password: string }) => {
+        try {
+            return await createUserWithEmailAndPassword(auth, email, password)
+        } catch (error) {
+            throw error
+        }
     }
 
-    const login = ({ email, password }: { email: string, password: string }) => {
-        return signInWithEmailAndPassword(auth, email, password)
+    const login = async ({ email, password }: { email: string, password: string }) => {
+        try {
+            return await signInWithEmailAndPassword(auth, email, password)
+        } catch (error) {
+            throw error
+        }
     }
 
-    const logout = () => {
-        return signOut(auth)
+    const logout = async () => {
+        try {
+            return await signOut(auth)
+        } catch (error) {
+            throw error
+        }
     }
 
     useEffect(() => {

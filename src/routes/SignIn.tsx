@@ -4,21 +4,16 @@ import {
   Navigate,
   useNavigate
 } from 'react-router-dom'
-import { User } from '../lib/types'
+import { FormAttribute } from '../lib/types'
 import { UserAuth } from '../context/AuthContext'
 
-const DefaultLoginForm: User = {
-  email: "",
-  password: ""
-}
-
 const SignIn = (): JSX.Element => {
-  const [loginForm, setLoginForm] = useState(DefaultLoginForm)
-  const [error, setError] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [loginForm, setLoginForm] = useState<FormAttribute>({ email: "", password: "" })
+  const [error, setError] = useState<string>("")
+  const [loading, setLoading] = useState<boolean>(false)
 
   const navigate = useNavigate()
-  const { user, login }: any = UserAuth()
+  const { user, login } = UserAuth()
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm(prev => ({
@@ -36,7 +31,6 @@ const SignIn = (): JSX.Element => {
       setLoading(false)
       navigate('/picalculator')
     } catch (e: any) {
-      console.log('Error:', e.code)
       if (e.code === "auth/invalid-credential") {
         setError("Invalid User!")
       } else if (e.code === "auth/network-request-failed") {
