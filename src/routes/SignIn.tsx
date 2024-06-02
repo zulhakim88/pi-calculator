@@ -4,11 +4,11 @@ import {
   Navigate,
   useNavigate
 } from 'react-router-dom'
-import { FormAttribute } from '../lib/types'
+import { UserAttribute } from '../lib/types'
 import { UserAuth } from '../context/AuthContext'
 
 const SignIn = (): JSX.Element => {
-  const [loginForm, setLoginForm] = useState<FormAttribute>({ email: "", password: "" })
+  const [loginForm, setLoginForm] = useState<UserAttribute>({ email: "", password: "" })
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 

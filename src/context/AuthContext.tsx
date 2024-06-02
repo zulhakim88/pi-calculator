@@ -9,12 +9,12 @@ import {
     AuthErrorCodes
 } from 'firebase/auth'
 import { auth } from '../firebase'
-import { ChildrenElement, FormAttribute } from '../lib/types'
+import { ChildrenElement, UserAttribute } from '../lib/types'
 
 interface AuthStateContext {
     user: FirebaseUser | null,
-    registerUser: ({ email, password }: FormAttribute) => Promise<FirebaseUserCredential>
-    login: ({ email, password }: FormAttribute) => Promise<FirebaseUserCredential>
+    registerUser: ({ email, password }: UserAttribute) => Promise<FirebaseUserCredential>
+    login: ({ email, password }: UserAttribute) => Promise<FirebaseUserCredential>
     logout: () => Promise<void>
 }
 
@@ -23,7 +23,7 @@ const UserContext = createContext({} as AuthStateContext)
 export const AuthContextProvider = ({ children }: ChildrenElement) => {
     const [user, setUser] = useState<FirebaseUser | null>(null)
 
-    const registerUser = async ({ email, password }: FormAttribute) => {
+    const registerUser = async ({ email, password }: UserAttribute) => {
         try {
             return await createUserWithEmailAndPassword(auth, email, password)
         } catch (error: any) {
@@ -39,7 +39,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
         }
     }
 
-    const login = async ({ email, password }: FormAttribute) => {
+    const login = async ({ email, password }: UserAttribute) => {
         try {
             return await signInWithEmailAndPassword(auth, email, password)
         } catch (error: any) {

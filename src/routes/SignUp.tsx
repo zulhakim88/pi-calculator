@@ -5,10 +5,10 @@ import {
   useNavigate
 } from 'react-router-dom'
 import { UserAuth } from '../context/AuthContext'
-import { FormAttribute } from '../lib/types'
+import { UserAttribute } from '../lib/types'
 
 const SignUp = (): JSX.Element => {
-  const [registerForm, setRegisterForm] = useState<FormAttribute>({ email: "", password: "", confirmPassword: "" })
+  const [registerForm, setRegisterForm] = useState<UserAttribute>({ email: "", password: "", confirmPassword: "" })
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
