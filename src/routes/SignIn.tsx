@@ -26,13 +26,15 @@ const SignIn = (): JSX.Element => {
     e.preventDefault()
     setError("")
     setLoading(true)
-    await login(loginForm).then(() => {
+    try {
+      await login(loginForm)
       console.log('Successfully logged in!!')
       setLoading(false)
       navigate('/picalculator')
-    }).catch((error) => {
+    } catch (error: any) {
+      setLoading(false)
       setError(error.message)
-    })
+    }
   }
 
   if (user) {

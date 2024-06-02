@@ -66,7 +66,6 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 
     useEffect(() => {
         const checkLoginStatus = onAuthStateChanged(auth, (currentUser) => {
-            console.log(currentUser)
             setUser(currentUser)
         })
         return () => {

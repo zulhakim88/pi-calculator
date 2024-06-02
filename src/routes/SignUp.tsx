@@ -36,14 +36,14 @@ const SignUp = (): JSX.Element => {
       setLoading(false)
       return
     }
-    await registerUser(registerForm).then(() => {
-      console.log('Successfully created a user!')
+    try {
+      await registerUser(registerForm)
       setLoading(false)
       navigate('/picalculator')
-    }).catch((error) => {
+    } catch (error: any) {
       setLoading(false)
       setError(error.message)
-    })
+    }
   }
 
   if (user) {
