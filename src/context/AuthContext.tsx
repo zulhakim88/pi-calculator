@@ -9,12 +9,12 @@ import {
     AuthErrorCodes
 } from 'firebase/auth'
 import { auth } from '../firebase'
-import { ChildrenElement } from '../lib/types'
+import { ChildrenElement, FormAttribute } from '../lib/types'
 
 interface AuthStateContext {
     user: FirebaseUser | null,
-    registerUser: ({ email, password }: { email: string, password: string }) => Promise<FirebaseUserCredential>
-    login: ({ email, password }: { email: string, password: string }) => Promise<FirebaseUserCredential>
+    registerUser: ({ email, password }: FormAttribute) => Promise<FirebaseUserCredential>
+    login: ({ email, password }: FormAttribute) => Promise<FirebaseUserCredential>
     logout: () => Promise<void>
 }
 
@@ -23,19 +23,36 @@ const UserContext = createContext({} as AuthStateContext)
 export const AuthContextProvider = ({ children }: ChildrenElement) => {
     const [user, setUser] = useState<FirebaseUser | null>(null)
 
-    const registerUser = async ({ email, password }: { email: string, password: string }) => {
+    const registerUser = async ({ email, password }: FormAttribute) => {
         try {
             return await createUserWithEmailAndPassword(auth, email, password)
-        } catch (error) {
-            throw error
+        } catch (error: any) {
+            if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
+                throw new Error("The Email has been registered!")
+            } else if (error.code === AuthErrorCodes.INVALID_EMAIL) {
+                throw new Error("Invalid Email!")
+            } else if (error.code === AuthErrorCodes.WEAK_PASSWORD) {
+                throw new Error("Password should atleast be 6 characters long!")
+            } else {
+                throw new Error(error.message)
+            }
         }
     }
 
-    const login = async ({ email, password }: { email: string, password: string }) => {
+    const login = async ({ email, password }: FormAttribute) => {
         try {
             return await signInWithEmailAndPassword(auth, email, password)
-        } catch (error) {
-            throw error
+        } catch (error: any) {
+            if (error.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
+                throw new Error("Invalid User!")
+            }
+            if (error.code === AuthErrorCodes.NETWORK_REQUEST_FAILED) {
+                throw new Error("Service is temporarily unavailable!")
+            }
+            if (error.code === AuthErrorCodes.WEAK_PASSWORD) {
+                throw new Error("Password should atleast be 6 characters long!")
+            }
+            throw new Error(error.message)
         }
     }
 

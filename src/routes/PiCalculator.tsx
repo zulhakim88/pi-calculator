@@ -16,7 +16,7 @@ const PiCalculator = (): JSX.Element => {
       console.log(e.code)
     }
   }
-
+  console.log(user)
   return (
     <div className="max-w-[700px] mx-auto my-16 p-4">
       <h1 className="text-center text-2xl font-bold py-2">Welcome {user && user.email}!</h1>

@@ -24,24 +24,15 @@ const SignIn = (): JSX.Element => {
 
   const handleFormSubmit = async (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setError("")
     setLoading(true)
-    try {
-      await login(loginForm)
+    await login(loginForm).then(() => {
       console.log('Successfully logged in!!')
       setLoading(false)
       navigate('/picalculator')
-    } catch (e: any) {
-      if (e.code === "auth/invalid-credential") {
-        setError("Invalid User!")
-      } else if (e.code === "auth/network-request-failed") {
-        setError("Service is temporarily unavailable!")
-      } else if (e.code === "auth/weak-password") {
-        setError("Password should atleast be 6 characters long!")
-      } else {
-        setError(e.message)
-      }
-      setLoading(false)
-    }
+    }).catch((error) => {
+      setError(error.message)
+    })
   }
 
   if (user) {
@@ -49,14 +40,14 @@ const SignIn = (): JSX.Element => {
   }
 
   return (
-    <div className="max-w-[700px] mx-auto my-16 p-4">
-      <div>
+    <div className="flex items-center flex-col justify-center h-screen max-w-[500px] mx-auto p-4">
+      <div className="w-max">
         <h1 className="text-center text-2xl font-bold py-2">
           Sign In!
         </h1>
-        <p className="p-2 flex justify-center">Don't have an account? <Link to="/signup" className="underline"> Sign Up!</Link></p>
+        <div className="p-2 flex justify-center space-x-1"><p>Don't have an account?</p><Link to="/signup" className="underline text-blue-500"> Sign Up!</Link></div>
       </div>
-      <form onSubmit={handleFormSubmit}>
+      <form onSubmit={handleFormSubmit} className="w-full">
         <div className="flex flex-col py-2">
           <label className="py-2 font-medium">Email Address</label>
           <input onChange={handleInput} className="border p-3 rounded-lg" type="email" name="email" />
