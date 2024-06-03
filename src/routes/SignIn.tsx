@@ -35,7 +35,7 @@ const SignIn = (): JSX.Element => {
       await login(loginForm)
       console.log('Successfully logged in!!')
       setLoading(false)
-      navigate('/picalculator')
+      navigate('/home')
     } catch (error: any) {
       setLoading(false)
       setError(error.message)
@@ -43,7 +43,7 @@ const SignIn = (): JSX.Element => {
   }
 
   if (user) {
-    return <Navigate to="/picalculator" />
+    return <Navigate to="/home" />
   }
 
   return (
@@ -57,11 +57,11 @@ const SignIn = (): JSX.Element => {
       <form onSubmit={handleFormSubmit} className="w-full">
         <div className="flex flex-col py-2">
           <label className="py-2 font-medium">Email Address</label>
-          <input onChange={handleInput} className="border p-3 rounded-lg" type="email" name="email" />
+          <input onChange={handleInput} className="border p-3 rounded-lg" type="email" name="email" required />
         </div>
         <div className="flex flex-col py-2">
           <label className="py-2 font-medium">Password</label>
-          <input onChange={handleInput} className="border p-3 rounded-lg" type="password" name="password" />
+          <input onChange={handleInput} className="border p-3 rounded-lg" type="password" name="password" required />
         </div>
         {
           loading ?

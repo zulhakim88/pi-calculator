@@ -27,9 +27,9 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 
     const registerUser = async ({ firstName, lastName, email, password }: UserAttribute) => {
         try {
-            const test = await createUserWithEmailAndPassword(auth, email, password)
-            await updateProfile(test.user, { displayName: `${firstName} ${lastName}` })
-            return test
+            const createdUser = await createUserWithEmailAndPassword(auth, email, password)
+            await updateProfile(createdUser.user, { displayName: `${firstName} ${lastName}` })
+            return createdUser
         } catch (error: any) {
             if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
                 throw new Error("The Email has been registered!")
@@ -45,7 +45,10 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 
     const login = async ({ email, password }: UserAttribute) => {
         try {
-            return await signInWithEmailAndPassword(auth, email, password)
+            const signInUser = await signInWithEmailAndPassword(auth, email, password)
+            const idToken = await signInUser.user.getIdToken()
+            console.log('Id Token:', idToken)
+            return signInUser
         } catch (error: any) {
             if (error.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
                 throw new Error("Invalid User!")
@@ -72,13 +75,14 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
     }
 
     useEffect(() => {
-        const checkLoginStatus = onAuthStateChanged(auth, (currentUser) => {
-            console.log(currentUser)
+        const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            const tokenResult = await currentUser?.getIdTokenResult()
+            console.log("Token Result:", tokenResult)
             setUser(currentUser)
             setLoading(false)
         })
         return () => {
-            checkLoginStatus();
+            unsubscribe();
         }
     }, [])
 

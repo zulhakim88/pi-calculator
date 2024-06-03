@@ -4,18 +4,18 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import { AuthContextProvider } from './context/AuthContext.tsx'
 import SignUp from './routes/SignUp.tsx'
 import SignIn from './routes/SignIn.tsx'
-import PiCalculator from './routes/PiCalculator.tsx'
-import './index.css'
+import Home from './routes/Home.tsx'
 import ProtectedRoutes from './components/ProtectedRoutes.tsx'
+import './index.css'
 
 const router = createBrowserRouter([
   { path: "/", element: <SignIn /> },
   { path: "/signup", element: <SignUp /> },
   {
-    path: "/picalculator",
+    path: "/home",
     element:
       <ProtectedRoutes>
-        <PiCalculator />
+        <Home />
       </ProtectedRoutes>
   }
 ])

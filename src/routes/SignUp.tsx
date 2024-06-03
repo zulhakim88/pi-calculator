@@ -45,7 +45,7 @@ const SignUp = (): JSX.Element => {
     try {
       await registerUser(registerForm)
       setLoading(false)
-      navigate('/picalculator')
+      navigate('/home')
     } catch (error: any) {
       setLoading(false)
       setError(error.message)
@@ -53,7 +53,7 @@ const SignUp = (): JSX.Element => {
   }
 
   if (user) {
-    return <Navigate to="/picalculator" />
+    return <Navigate to="/home" />
   }
 
   return (
