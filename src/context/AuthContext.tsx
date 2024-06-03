@@ -14,7 +14,7 @@ import { ChildrenElement, UserAttribute } from '../lib/types'
 
 interface AuthStateContext {
     user: FirebaseUser | null,
-    registerUser: ({ email, password }: UserAttribute) => Promise<FirebaseUserCredential>
+    registerUser: ({ firstName, lastName, email, password }: UserAttribute) => Promise<FirebaseUserCredential>
     login: ({ email, password }: UserAttribute) => Promise<FirebaseUserCredential>
     logout: () => Promise<void>
 }
