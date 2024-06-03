@@ -66,7 +66,7 @@ const SignUp = (): JSX.Element => {
           <div className="p-2 flex justify-center space-x-1"><p>Already have an account?</p><Link to="/signin" className="underline text-blue-500">Sign in!</Link></div>
         </div>
         <form onSubmit={handleFormSubmit} className="w-full">
-          <div className="flex flex-row justify-between gap-5">
+          <div className="flex flex-row justify-between gap-3">
             <div className="flex flex-col py-2 w-60">
               <label className="py-2 font-medium">First Name</label>
               <input onChange={handleInput} className="border p-3 rounded-lg" type="text" name="firstName" placeholder="First Name..." />
