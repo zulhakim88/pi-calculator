@@ -63,7 +63,7 @@ const SignUp = (): JSX.Element => {
           <h1 className="text-center text-2xl font-bold py-2">
             Register an account
           </h1>
-          <div className="p-2 flex justify-center space-x-1"><p>Already have an account?</p><Link to="/" className="underline text-blue-500">Sign in!</Link></div>
+          <div className="p-2 flex justify-center space-x-1"><p>Already have an account?</p><Link to="/signin" className="underline text-blue-500">Sign in!</Link></div>
         </div>
         <form onSubmit={handleFormSubmit} className="w-full">
           <div className="flex flex-row justify-between gap-5">
