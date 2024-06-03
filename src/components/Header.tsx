@@ -28,7 +28,7 @@ const Header = (): JSX.Element => {
             </div>
             <div className="flex flex-row items-center">
                 <button onClick={handleLogout} className="mx-2 text-center cursor-pointer">Logout</button>
-                <button className="flex justify-center bg-sky-500 rounded-full p-4 text-white h-13 w-13 text-center font-bold cursor-pointer">{nameInitial(user && user.displayName)}</button>
+                <button className="flex justify-center bg-sky-500 rounded-full p-4 text-white h-14 w-14 text-center font-bold cursor-pointer">{nameInitial(user && user.displayName)}</button>
             </div>
         </div>
     )
