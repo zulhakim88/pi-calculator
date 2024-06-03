@@ -48,12 +48,12 @@ const SignIn = (): JSX.Element => {
 
   return (
     <div className="flex items-center h-screen bg-sky-100">
-      <div className="flex items-center flex-col justify-center w-[500px] mx-auto p-5 bg-white rounded-lg shadow-md">
-        <div className="w-max">
-          <h1 className="text-center text-2xl font-bold py-2">
+      <div className="flex flex-col w-[500px] mx-auto p-5 bg-white rounded-lg shadow-md">
+        <div className="flex flex-col">
+          <h1 className="text-left text-2xl font-bold py-2">
             Sign In!
           </h1>
-          <div className="p-2 flex justify-center space-x-1"><p>Don't have an account?</p><Link to="/signup" className="underline text-blue-500"> Sign Up!</Link></div>
+          <div className="py-2 flex justify-start space-x-1"><p>Don't have an account?</p><Link to="/signup" className="underline text-blue-500"> Sign Up!</Link></div>
         </div>
         <form onSubmit={handleFormSubmit} className="w-full">
           <div className="flex flex-col py-2">
