@@ -1,4 +1,3 @@
-import React from 'react'
 import { FaRocket } from 'react-icons/fa'
 import { UserAuth } from '../context/AuthContext'
 import { nameInitial } from '../util'
