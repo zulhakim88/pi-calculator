@@ -2,12 +2,24 @@ import React from 'react'
 import { FaRocket } from 'react-icons/fa'
 import { UserAuth } from '../context/AuthContext'
 import { nameInitial } from '../util'
+import { useNavigate } from 'react-router-dom'
 
-const Header = () => {
-    const { user } = UserAuth()
+const Header = (): JSX.Element => {
+    const { user, logout } = UserAuth()
+    const navigate = useNavigate()
+
+    const handleLogout = async () => {
+        try {
+            await logout()
+            console.log("Logout Successful")
+            navigate('/')
+        } catch (e: any) {
+            console.log(e.code)
+        }
+    }
 
     return (
-        <div className="absolute w-screen flex bg-gray-100 p-3 justify-between items-center shadow-md">
+        <div className="w-screen flex bg-gray-100 p-3 justify-between items-center shadow-md">
             <div className="flex flex-row items-center">
                 <button className="p-3 bg-purple-700 text-white rounded-md">
                     <FaRocket className="h-7 w-7" />
@@ -15,7 +27,8 @@ const Header = () => {
                 <div className="mx-4 font-bold text-lg">PI Calculator</div>
             </div>
             <div className="flex flex-row items-center">
-                <button className="flex justify-center bg-sky-500 rounded-full p-4 text-white mx-2 h-13 w-13 text-center font-bold cursor-pointer">{nameInitial(user && user.displayName)}</button>
+                <button onClick={handleLogout} className="mx-2 text-center cursor-pointer">Logout</button>
+                <button className="flex justify-center bg-sky-500 rounded-full p-4 text-white h-13 w-13 text-center font-bold cursor-pointer">{nameInitial(user && user.displayName)}</button>
             </div>
         </div>
     )
