@@ -12,7 +12,7 @@ const Header = (): JSX.Element => {
         try {
             await logout()
             console.log("Logout Successful")
-            navigate('/')
+            navigate('/signin')
         } catch (e: any) {
             console.log(e.code)
         }

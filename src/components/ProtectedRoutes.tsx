@@ -5,7 +5,7 @@ import { ChildrenElement } from '../lib/types'
 const ProtectedRoutes = ({ children }: ChildrenElement) => {
     const { user } = UserAuth()
     if (!user) {
-        return <Navigate to="/" />
+        return <Navigate to="/signin" />
     }
     return children
 }

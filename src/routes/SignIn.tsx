@@ -35,7 +35,7 @@ const SignIn = (): JSX.Element => {
       await login(loginForm)
       console.log('Successfully logged in!!')
       setLoading(false)
-      navigate('/home')
+      navigate('/')
     } catch (error: any) {
       setLoading(false)
       setError(error.message)
@@ -43,7 +43,7 @@ const SignIn = (): JSX.Element => {
   }
 
   if (user) {
-    return <Navigate to="/home" />
+    return <Navigate to="/" />
   }
 
   return (
