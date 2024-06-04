@@ -1,4 +1,4 @@
-// import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import PiCalculator from '../components/PiCalculator'
 import SunCircumferenceCalculator from '../components/SunCircumferenceCalculator'
@@ -7,6 +7,13 @@ import { UserAuth } from '../context/AuthContext'
 const Home = (): JSX.Element => {
   const { user } = UserAuth()
 
+  const navigate = useNavigate()
+
+  if (!user) {
+    navigate('signin')
+  }
+
+  console.log("Home render")
   return (
     <div className="h-screen bg-sky-100">
       <Header />

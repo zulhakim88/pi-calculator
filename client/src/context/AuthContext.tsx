@@ -29,6 +29,8 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
         try {
             const createdUser = await createUserWithEmailAndPassword(auth, email, password)
             await updateProfile(createdUser.user, { displayName: `${firstName} ${lastName}` })
+            const idToken = await createdUser.user.getIdToken(true)
+            localStorage.setItem("token", `Bearer ${idToken}`)
             return createdUser
         } catch (error: any) {
             if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
@@ -46,8 +48,8 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
     const login = async ({ email, password }: UserAttribute) => {
         try {
             const signInUser = await signInWithEmailAndPassword(auth, email, password)
-            const idToken = await signInUser.user.getIdToken()
-            console.log('Id Token:', idToken)
+            const idToken = await signInUser.user.getIdToken(true)
+            localStorage.setItem("token", `Bearer ${idToken}`)
             return signInUser
         } catch (error: any) {
             if (error.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
@@ -68,6 +70,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 
     const logout = async () => {
         try {
+            localStorage.clear()
             return await signOut(auth)
         } catch (error) {
             throw error
@@ -76,8 +79,6 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            const tokenResult = await currentUser?.getIdTokenResult()
-            console.log("Token Result:", tokenResult)
             setUser(currentUser)
             setLoading(false)
         })
