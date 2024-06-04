@@ -10,7 +10,7 @@ const service = axios.create({
 })
 
 service.interceptors.response.use((response: AxiosResponse): AxiosResponse => {
-    return response.data
+    return response
 })
 
 

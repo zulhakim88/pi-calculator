@@ -1,14 +1,19 @@
 import { useState } from 'react'
-import { getRandomActivity } from '../services/api'
+import { getLatestPi, getLatestPiWithPrecission } from '../services/api'
 
 const PiCalculator = (): JSX.Element => {
     const [piValue, setPiValue] = useState<string>("3.142")
     const [loading, setLoading] = useState<boolean>(false)
     const [copied, setCopied] = useState<boolean>(false)
+    const [piDigit, setPiDigit] = useState<number>(0)
+
+    const handlePiPrecissionInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPiDigit(parseInt(e.target.value))
+    }
 
     const handleCopyClick = async () => {
         try {
-            await navigator.clipboard.writeText(piValue)
+            await navigator.clipboard.writeText(typeof piValue === "string" ? piValue : "")
             setCopied(true)
             setInterval(() => {
                 setCopied(false)
@@ -22,9 +27,23 @@ const PiCalculator = (): JSX.Element => {
     const handleFetchClick = async () => {
         setLoading(true)
         try {
-            const data = await getRandomActivity()
-            setLoading(false)
-            console.log("Data from Random Activity:", data)
+            if (piDigit > 0) {
+                try {
+                    const response = await getLatestPiWithPrecission(piDigit)
+                    setLoading(false)
+                    setPiValue(response.data.pi)
+                } catch (e: any) {
+                    console.log(e)
+                }
+            } else {
+                try {
+                    const response = await getLatestPi()
+                    setLoading(false)
+                    setPiValue(response.data.pi)
+                } catch (e: any) {
+                    console.log(e)
+                }
+            }
         } catch (error: any) {
             setLoading(false)
             console.log(error)
@@ -34,13 +53,16 @@ const PiCalculator = (): JSX.Element => {
     return (
         <div className="">
             <div className="flex justify-between items-center">
-                <h1 className="font-bold text-lg">PI to N Decimal Calculator</h1>
-                <div>
+                <h1 className="font-bold text-lg">Get PI!</h1>
+                <div className="flex flex-row justify-end w-[500px]">
+                    <div className="p-2 my-3">
+                        <input onChange={handlePiPrecissionInput} className="border p-3 rounded-lg" type="number" min={0} placeholder="Digits..." />
+                    </div>
                     {
                         copied ?
-                            <button className="border-blue-400 bg-green-400 hover:bg-green-500 max-w-[100px] wi p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copied!</button>
+                            <button className=" bg-green-400 hover:bg-green-500 max-w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copied!</button>
                             :
-                            <button onClick={handleCopyClick} className="border-blue-400 bg-green-400 hover:bg-green-500 max-w-[100px] wi p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copy</button>
+                            <button onClick={handleCopyClick} className=" bg-green-400 hover:bg-green-500 max-w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copy</button>
                     }
 
                     {
@@ -56,7 +78,7 @@ const PiCalculator = (): JSX.Element => {
                     }
                 </div>
             </div>
-            <textarea className="p-4 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400" cols={100} rows={10} defaultValue={piValue} disabled></textarea>
+            <textarea className="p-4 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400" cols={100} rows={10} value={piValue} disabled></textarea>
         </div>
     )
 }

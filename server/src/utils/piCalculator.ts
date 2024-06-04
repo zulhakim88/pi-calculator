@@ -92,7 +92,6 @@ export const piCalculator = (args: [number]) => {
   r = calc_pi(n_bits);
   r = (10n ** BigInt(n_digits) * r) >> n_bits;
   out = r.toString();
-  console.log(out[0] + "." + out.slice(1));
   if (out.length === 1) {
     return out[0];
   }
