@@ -81,7 +81,7 @@ const PiCalculator = (): JSX.Element => {
                 </div>
 
             </div>
-            <textarea className="p-4 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400" cols={100} rows={8} value={piValue} disabled></textarea>
+            <textarea className="p-4 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400" cols={100} rows={7} value={piValue} disabled></textarea>
         </>
     )
 }
