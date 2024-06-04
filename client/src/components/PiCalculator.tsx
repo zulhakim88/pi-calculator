@@ -17,7 +17,7 @@ const PiCalculator = (): JSX.Element => {
             setCopied(true)
             setInterval(() => {
                 setCopied(false)
-            }, 1500)
+            }, 2000)
         } catch (e: any) {
             console.log(e)
         }
@@ -51,18 +51,21 @@ const PiCalculator = (): JSX.Element => {
     }
 
     return (
-        <div className="">
-            <div className="flex justify-between items-center">
-                <h1 className="font-bold text-lg">Get PI!</h1>
-                <div className="flex flex-row justify-end w-[500px]">
-                    <div className="p-2 my-3">
-                        <input onChange={handlePiPrecissionInput} className="border p-3 rounded-lg" type="number" min={0} placeholder="Digits..." />
-                    </div>
+        <>
+            <div>
+                <h1 className="text-lg font-bold">Get Latest Pi Value!</h1>
+                <p className="py-2">The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest value.</p>
+            </div>
+            <div className="flex justify-between sm:flex-row flex-col">
+                <div className="my-3">
+                    <input onChange={handlePiPrecissionInput} className="border p-3 rounded-lg sm:w-auto w-full" type="number" min={0} placeholder="Digits..." />
+                </div>
+                <div className='flex items-center sm:justify-normal justify-center'>
                     {
                         copied ?
-                            <button className=" bg-green-400 hover:bg-green-500 max-w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copied!</button>
+                            <button className=" bg-green-400 hover:bg-green-500 h-[50px] w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copied!</button>
                             :
-                            <button onClick={handleCopyClick} className=" bg-green-400 hover:bg-green-500 max-w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copy</button>
+                            <button onClick={handleCopyClick} className=" bg-green-400 hover:bg-green-500 w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copy</button>
                     }
 
                     {
@@ -77,9 +80,10 @@ const PiCalculator = (): JSX.Element => {
                             <button onClick={handleFetchClick} className="border-blue-400 bg-blue-400 hover:bg-blue-600 w-[100px] p-3 my-3 text-white cursor-pointer rounded-lg">Fetch</button>
                     }
                 </div>
+
             </div>
-            <textarea className="p-4 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400" cols={100} rows={10} value={piValue} disabled></textarea>
-        </div>
+            <textarea className="p-4 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400" cols={100} rows={8} value={piValue} disabled></textarea>
+        </>
     )
 }
 

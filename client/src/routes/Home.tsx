@@ -15,7 +15,7 @@ const Home = (): JSX.Element => {
 
   console.log("Home render")
   return (
-    <div className="h-screen bg-sky-100">
+    <div className="min-h-screen bg-sky-100">
       <Header />
       <div className="grid sm:grid-cols-4 auto-rows-max p-3 max-h-screen">
         <div className="col-span-full bg-white mb-3 p-4 rounded-md row-span-5 ">
