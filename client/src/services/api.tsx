@@ -1,5 +1,5 @@
 import service from "./axios"
 
-export const getRandomActivity = () => {
-    return service.get('/user')
+export const getLatestPi = () => {
+    return service.get('/v1/pi')
 }
