@@ -26,39 +26,38 @@ const PiCalculator = (): JSX.Element => {
 
     const handleFetchClick = async () => {
         setLoading(true)
-        try {
-            if (piDigit > 0) {
-                try {
-                    const response = await getLatestPiWithPrecission(piDigit)
-                    setLoading(false)
-                    setPiValue(response.data.pi)
-                } catch (e: any) {
-                    console.log(e)
-                }
-            } else {
-                try {
-                    const response = await getLatestPi()
-                    setLoading(false)
-                    setPiValue(response.data.pi)
-                } catch (e: any) {
-                    console.log(e)
-                }
+
+        if (piDigit > 0) {
+            try {
+                const response = await getLatestPiWithPrecission(piDigit)
+                setLoading(false)
+                setPiValue(response.data.pi)
+            } catch (e: any) {
+                setLoading(false)
+                console.log(e)
             }
-        } catch (error: any) {
-            setLoading(false)
-            console.log(error)
+        } else {
+            try {
+                const response = await getLatestPi()
+                setLoading(false)
+                setPiValue(response.data.pi)
+            } catch (e: any) {
+                setLoading(false)
+                console.log(e)
+            }
         }
+
     }
 
     return (
         <>
             <div>
                 <h1 className="text-lg font-bold">Get Latest Pi Value!</h1>
-                <p className="py-2">The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest value.</p>
+                <p className="py-2">The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest value. You can even specify the precision of PI by specifying manually.</p>
             </div>
             <div className="flex justify-between sm:flex-row flex-col">
-                <div className="my-3">
-                    <input onChange={handlePiPrecissionInput} className="border p-3 rounded-lg sm:w-auto w-full" type="number" min={0} placeholder="Digits..." />
+                <div className="my-2">
+                    <input onChange={handlePiPrecissionInput} className="border p-3 rounded-lg sm:w-auto w-full" type="number" min={0} placeholder="Precision" />
                 </div>
                 <div className='flex items-center sm:justify-normal justify-center'>
                     {
