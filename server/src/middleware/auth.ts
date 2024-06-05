@@ -16,19 +16,10 @@ export const validateRequestToken = async (
   if (!token) {
     return res.status(401).send({ error: "Token Doesn't Exist!" });
   }
-
   try {
     const decodedtoken = await admin.auth().verifyIdToken(token);
     const user = await admin.auth().getUser(decodedtoken.user_id);
-    if (!user.customClaims) {
-      await admin.auth().setCustomUserClaims(user.uid, {
-        paiduser: false,
-      });
-      const updatedUser = await admin.auth().getUser(decodedtoken.user_id);
-      res.locals.paidUser = updatedUser.customClaims?.paiduser;
-    } else {
-      res.locals.paidUser = user.customClaims.paiduser;
-    }
+    res.locals.paidUser = user.customClaims?.paiduser;
   } catch (e: any) {
     return res.status(401).send({ error: "Unauthorized access" });
   }
