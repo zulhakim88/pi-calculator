@@ -78,11 +78,11 @@ const calc_pi = (prec: bigint) => {
   return (Q * G) >> prec;
 };
 
-export const piCalculator = (args: [number]) => {
+export const piCalculator = (args: [number]): string => {
   let r, n_digits, n_bits, out;
   if (args.length < 1) {
     console.log("usage: pi n_digits");
-    return;
+    return "";
   }
   n_digits = args[0] | 0;
 

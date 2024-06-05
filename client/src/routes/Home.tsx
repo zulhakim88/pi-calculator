@@ -13,7 +13,6 @@ const Home = (): JSX.Element => {
     navigate('signin')
   }
 
-  console.log("Home render")
   return (
     <div className="min-h-screen bg-sky-100">
       <Header />

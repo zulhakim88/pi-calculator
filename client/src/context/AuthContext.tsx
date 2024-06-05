@@ -11,9 +11,12 @@ import {
 } from 'firebase/auth'
 import { auth } from '../firebase'
 import { ChildrenElement, UserAttribute } from '../lib/types'
+import { setUserAsFreeUser } from '../services/api'
 
 interface AuthStateContext {
     user: FirebaseUser | null,
+    isPaidUser: boolean,
+    setIsPaidUser: React.Dispatch<React.SetStateAction<boolean>>,
     registerUser: ({ firstName, lastName, email, password }: UserAttribute) => Promise<FirebaseUserCredential>
     login: ({ email, password }: UserAttribute) => Promise<FirebaseUserCredential>
     logout: () => Promise<void>
@@ -24,13 +27,17 @@ const UserContext = createContext({} as AuthStateContext)
 export const AuthContextProvider = ({ children }: ChildrenElement) => {
     const [user, setUser] = useState<FirebaseUser | null>(null)
     const [loading, setLoading] = useState<boolean>(true)
+    const [isPaidUser, setIsPaidUser] = useState<boolean>(false)
 
     const registerUser = async ({ firstName, lastName, email, password }: UserAttribute) => {
         try {
             const createdUser = await createUserWithEmailAndPassword(auth, email, password)
             await updateProfile(createdUser.user, { displayName: `${firstName} ${lastName}` })
-            const idToken = await createdUser.user.getIdToken(true)
-            localStorage.setItem("token", `Bearer ${idToken}`)
+            const idToken = await createdUser.user.getIdTokenResult(true)
+            localStorage.setItem("token", `Bearer ${idToken.token}`)
+            const isPaidUser = await setUserAsFreeUser()
+            console.log("User Claims after register:", isPaidUser)
+            setIsPaidUser(isPaidUser.data.isPaidUser)
             return createdUser
         } catch (error: any) {
             if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
@@ -48,7 +55,10 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
     const login = async ({ email, password }: UserAttribute) => {
         try {
             const signInUser = await signInWithEmailAndPassword(auth, email, password)
-            const idToken = await signInUser.user.getIdToken(true)
+            const idToken = await signInUser.user.getIdToken()
+            const decodedToken = await signInUser.user.getIdTokenResult()
+            const isPaidUser = decodedToken.claims.paiduser ? decodedToken.claims.paiduser : false
+            setIsPaidUser(isPaidUser as boolean)
             localStorage.setItem("token", `Bearer ${idToken}`)
             return signInUser
         } catch (error: any) {
@@ -79,7 +89,11 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+            localStorage.clear()
+            const tokenDetails = await currentUser?.getIdTokenResult(true)
+            localStorage.setItem("token", tokenDetails?.token ? `Bearer ${tokenDetails?.token}` : "")
             setUser(currentUser)
+            setIsPaidUser(tokenDetails?.claims.paiduser as boolean)
             setLoading(false)
         })
         return () => {
@@ -102,7 +116,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
     }
 
     return (
-        <UserContext.Provider value={{ registerUser, user, logout, login }}>
+        <UserContext.Provider value={{ registerUser, user, setIsPaidUser, logout, login, isPaidUser }}>
             {children}
         </UserContext.Provider>
     )
