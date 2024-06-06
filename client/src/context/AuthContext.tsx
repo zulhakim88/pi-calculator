@@ -36,7 +36,6 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
             const idToken = await createdUser.user.getIdTokenResult(true)
             localStorage.setItem("token", `Bearer ${idToken.token}`)
             const isPaidUser = await setUserAsFreeUser()
-            console.log("User Claims after register:", isPaidUser)
             setIsPaidUser(isPaidUser.isPaidUser)
             return createdUser
         } catch (error: any) {

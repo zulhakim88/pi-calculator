@@ -81,7 +81,6 @@ const calc_pi = (prec: bigint) => {
 export const piCalculator = (args: [number]): string => {
   let r, n_digits, n_bits, out;
   if (args.length < 1) {
-    console.log("usage: pi n_digits");
     return "";
   }
   n_digits = args[0] | 0;

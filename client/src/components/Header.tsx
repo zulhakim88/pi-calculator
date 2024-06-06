@@ -10,7 +10,6 @@ const Header = (): JSX.Element => {
     const handleLogout = async () => {
         try {
             await logout()
-            console.log("Logout Successful")
             navigate('/signin')
         } catch (e: any) {
             console.log(e.code)

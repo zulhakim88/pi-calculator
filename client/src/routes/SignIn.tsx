@@ -34,7 +34,6 @@ const SignIn = (): JSX.Element => {
     }
     try {
       await login(loginForm)
-      console.log('Successfully logged in!!')
       setLoading(false)
       navigate('/')
     } catch (error: any) {
