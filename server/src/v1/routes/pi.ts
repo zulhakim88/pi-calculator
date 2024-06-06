@@ -18,11 +18,9 @@ router.get("/pi", (req: Request, res: Response) => {
 router.get("/pi/:digit", (req: Request, res: Response) => {
   let digit = 0;
   const isPaidUser = res.locals.paidUser;
-  if (isPaidUser) {
-    digit = parseInt(req.params.digit);
-  } else if (
-    !isPaidUser &&
-    parseInt(req.params.digit) <= MAX_PRECISION_FREE_USER
+  if (
+    isPaidUser ||
+    (!isPaidUser && parseInt(req.params.digit) <= MAX_PRECISION_FREE_USER)
   ) {
     digit = parseInt(req.params.digit);
   } else {
