@@ -34,9 +34,9 @@ const PiCalculator = (): JSX.Element => {
         setLoadingUpgradeButton(true)
         try {
             const response = await upgradeUser();
-            console.log("After upgrade:", response.data)
+            console.log("After upgrade:", response)
             setLoadingUpgradeButton(false)
-            setIsPaidUser(response.data.isPaidUser)
+            setIsPaidUser(response.isPaidUser)
         } catch (e: any) {
             console.log(e)
             setLoadingUpgradeButton(false)
@@ -49,9 +49,10 @@ const PiCalculator = (): JSX.Element => {
         if (piDigit > 0) {
             try {
                 const response = await getLatestPiWithPrecission(piDigit)
+                console.log("Data:", response)
                 setLoadingFetchButton(false)
-                setPiValue(response.data.pi)
-                setServerPiDigit(response.data.length - 2)
+                setPiValue(response.pi)
+                setServerPiDigit(response.length - 2)
             } catch (e: any) {
                 setLoadingFetchButton(false)
                 console.log(e)
@@ -59,9 +60,10 @@ const PiCalculator = (): JSX.Element => {
         } else {
             try {
                 const response = await getLatestPi()
+                console.log("Data:", response)
                 setLoadingFetchButton(false)
-                setPiValue(response.data.pi)
-                setServerPiDigit(response.data.length - 2)
+                setPiValue(response.pi)
+                setServerPiDigit(response.length - 2)
             } catch (e: any) {
                 setLoadingFetchButton(false)
                 console.log(e)

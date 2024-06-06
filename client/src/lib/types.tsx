@@ -9,3 +9,12 @@ export interface UserAttribute {
     password: string,
     confirmPassword?: string
 }
+
+export interface GetPiDataType {
+    length: number,
+    pi: string
+}
+
+export interface UserStatusType {
+    isPaidUser: boolean
+}

@@ -37,7 +37,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
             localStorage.setItem("token", `Bearer ${idToken.token}`)
             const isPaidUser = await setUserAsFreeUser()
             console.log("User Claims after register:", isPaidUser)
-            setIsPaidUser(isPaidUser.data.isPaidUser)
+            setIsPaidUser(isPaidUser.isPaidUser)
             return createdUser
         } catch (error: any) {
             if (error.code === AuthErrorCodes.EMAIL_EXISTS) {

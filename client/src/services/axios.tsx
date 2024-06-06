@@ -9,5 +9,8 @@ service.interceptors.request.use((request) => {
     return request
 })
 
+service.interceptors.response.use((response) => {
+    return response.data
+})
 
 export default service
