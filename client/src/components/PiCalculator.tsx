@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { getLatestPi, getLatestPiWithPrecission, upgradeUser } from '../services/api'
-import { UserAuth } from '../context/AuthContext'
+import { useUserAuth } from '../context/AuthContext'
 import LoadingSpinner from '../assets/svg'
 
 const PiCalculator = (): JSX.Element => {
@@ -11,7 +11,7 @@ const PiCalculator = (): JSX.Element => {
     const [piDigit, setPiDigit] = useState<number>(0)
     const [serverPiDigit, setServerPiDigit] = useState<number>(0)
 
-    const { isPaidUser, setIsPaidUser } = UserAuth()
+    const { isPaidUser, setIsPaidUser } = useUserAuth()
 
     const handlePiPrecissionInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPiDigit(parseInt(e.target.value))

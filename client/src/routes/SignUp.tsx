@@ -4,7 +4,7 @@ import {
   Navigate,
   useNavigate
 } from 'react-router-dom'
-import { UserAuth } from '../context/AuthContext'
+import { useUserAuth } from '../context/AuthContext'
 import { UserAttribute } from '../lib/types'
 
 const SignUp = (): JSX.Element => {
@@ -13,7 +13,7 @@ const SignUp = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const navigate = useNavigate()
-  const { registerUser, user } = UserAuth()
+  const { registerUser, user } = useUserAuth()
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRegisterForm(prev => ({

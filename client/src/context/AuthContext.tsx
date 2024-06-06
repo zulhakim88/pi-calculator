@@ -121,7 +121,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
         </UserContext.Provider>
     )
 }
-export const UserAuth = () => {
+export const useUserAuth = () => {
     return useContext(UserContext)
 }
 

@@ -1,10 +1,10 @@
 import { FaRocket } from 'react-icons/fa'
-import { UserAuth } from '../context/AuthContext'
+import { useUserAuth } from '../context/AuthContext'
 import { nameInitial } from '../util'
 import { useNavigate } from 'react-router-dom'
 
 const Header = (): JSX.Element => {
-    const { user, logout } = UserAuth()
+    const { user, logout } = useUserAuth()
     const navigate = useNavigate()
 
     const handleLogout = async () => {

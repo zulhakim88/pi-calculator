@@ -2,10 +2,10 @@ import { Navigate } from 'react-router-dom'
 import Header from '../components/Header'
 import PiCalculator from '../components/PiCalculator'
 import SunCircumferenceCalculator from '../components/SunCircumferenceCalculator'
-import { UserAuth } from '../context/AuthContext'
+import { useUserAuth } from '../context/AuthContext'
 
 const Home = (): JSX.Element => {
-  const { user } = UserAuth()
+  const { user } = useUserAuth()
 
   if (!user) {
     return <Navigate to="/signin" />

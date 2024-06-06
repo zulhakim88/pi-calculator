@@ -5,7 +5,7 @@ import {
   useNavigate
 } from 'react-router-dom'
 import { UserAttribute } from '../lib/types'
-import { UserAuth } from '../context/AuthContext'
+import { useUserAuth } from '../context/AuthContext'
 
 const SignIn = (): JSX.Element => {
   const [loginForm, setLoginForm] = useState<UserAttribute>({ email: "", password: "" })
@@ -13,7 +13,7 @@ const SignIn = (): JSX.Element => {
   const [loading, setLoading] = useState<boolean>(false)
 
   const navigate = useNavigate()
-  const { user, login } = UserAuth()
+  const { user, login } = useUserAuth()
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginForm(prev => ({
