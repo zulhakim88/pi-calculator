@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { getLatestPi, getLatestPiWithPrecission, upgradeUser } from '../services/api'
 import { useUserAuth } from '../context/AuthContext'
-import LoadingSpinner from '../assets/svg'
+import { LoadingSpinner } from '../assets/svg'
 
 const PiCalculator = (): JSX.Element => {
     const [piValue, setPiValue] = useState<string>("3.142")
