@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { getLatestPi, getLatestPiWithPrecission, upgradeUser } from '../services/api'
 import { useUserAuth } from '../context/AuthContext'
-import { LoadingSpinner } from '../assets/svg'
+import { LoadingSpinnerSmall } from '../assets/svg'
 
 const PiCalculator = (): JSX.Element => {
     const [piValue, setPiValue] = useState<string>("3.142")
@@ -78,7 +78,7 @@ const PiCalculator = (): JSX.Element => {
                     {
                         loadingUpgradeButton ?
                             <button className="flex justify-center items-center h-[30px] w-[130px] p-3 my-3 mr-2">
-                                <LoadingSpinner />
+                                <LoadingSpinnerSmall />
                             </button>
                             :
                             <button onClick={handleUpgradeClick} className={`bg-green-400 hover:bg-green-500 flex items-center justify-center h-[30px] w-[130px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg ${isPaidUser ? "hidden" : ""}`} >Upgrade Now!
@@ -102,7 +102,7 @@ const PiCalculator = (): JSX.Element => {
                     {
                         loadingFetchButton ?
                             <button className="flex justify-center items-center border-blue-400 bg-blue-400 h-[50px]  w-[100px] p-3 my-3 text-white cursor-not-allowed rounded-lg">
-                                <LoadingSpinner />
+                                <LoadingSpinnerSmall />
                             </button>
                             :
                             <button onClick={handleFetchClick} className="border-blue-400 bg-blue-400 hover:bg-blue-600 h-[50px] w-[100px] p-3 my-3 text-white cursor-pointer rounded-lg">Fetch</button>
