@@ -15,6 +15,6 @@ export interface GetPiDataType {
     pi: string
 }
 
-export interface UserStatusType {
+export interface UserPaidStatusType {
     isPaidUser: boolean
 }
