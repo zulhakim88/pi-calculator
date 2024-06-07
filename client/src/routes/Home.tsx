@@ -33,7 +33,7 @@ const Home = (): JSX.Element => {
               <h2 className="font-bold mb-2 my-2">Why do we need this?</h2>
               <ol className="list-disc pl-5 text-sm">
                 <li>
-                  We don't need this! Refer here: <Link className="underline text-blue-500" to="" target="_blank">How Many Decimals of Pi Do We Really Need?</Link> (We don't actually need more than 15 decimals)
+                  No we don't. Refer here: <Link className="underline text-blue-500" to="" target="_blank">How Many Decimals of Pi Do We Really Need?</Link> (We don't actually need more than 15 decimals)
                 </li>
                 <li>
                   Why did I build this then? I was wondering until I can't sleep! So I started building the Calculator 🤣.
