@@ -19,7 +19,7 @@ const Home = (): JSX.Element => {
           <h1 className="text-2xl font-bold pb-2">Welcome {user.displayName}!</h1>
           <div className="flex flex-col justify-between overflow-scroll p-3 bg-gray-200 rounded-md">
             <div>
-              <h2 className="font-bold mb-2">Objective</h2>
+              <h2 className="font-bold mb-2">Objective of this app</h2>
               <ol className="list-disc pl-5 text-sm">
                 <li>
                   Calculate PI to the Nth decimal point precision.
@@ -30,7 +30,7 @@ const Home = (): JSX.Element => {
               </ol>
             </div>
             <div>
-              <h2 className="font-bold mb-2 my-2">Why do we need this?</h2>
+              <h2 className="font-bold mb-2 my-2">Do we need this?</h2>
               <ol className="list-disc pl-5 text-sm">
                 <li>
                   No we don't. Refer here: <Link className="underline text-blue-500" to="" target="_blank">How Many Decimals of Pi Do We Really Need?</Link> (We don't actually need more than 15 decimals)
