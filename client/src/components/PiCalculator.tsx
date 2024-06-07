@@ -86,11 +86,11 @@ const PiCalculator = (): JSX.Element => {
             </div>
             <p className="py-2">The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest value. You can even specify the precision by specifying it manually. Free users only get up to 15 decimal precision. Upgrade to get unlimited precision!</p>
 
-            <div className="flex pt-1 mb-3 items-start justify-between sm:flex-row flex-col">
+            <div className="flex pt-1 mb-3 items-center justify-between sm:flex-row flex-col">
                 <div className="flex lg:flex-row flex-col items-center sm:w-[550px] w-full xl:mr-0 mr-2">
                     <input onChange={handlePiPrecissionInput} className="border p-3 rounded-md w-full" type="number" min={0} placeholder="Manual Precision" />
                 </div>
-                <div className='flex items-start sm:justify-normal justify-center'>
+                <div className="flex flex-row sm:mt-0 mt-3">
                     {
                         copied ?
                             <button className=" bg-green-400 hover:bg-green-500 mr-2 flex items-center justify-center h-[50px] w-[100px] p-3 text-white cursor-pointer rounded-md">Copied!</button>
@@ -108,7 +108,7 @@ const PiCalculator = (): JSX.Element => {
                     }
                 </div>
             </div>
-            <textarea className="p-2 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400 overflow-x-hidden text-sm" cols={100} rows={5} value={piValue} disabled></textarea>
+            <textarea className="p-2 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400 overflow-x-hidden text-sm" cols={100} rows={6} value={piValue} disabled></textarea>
         </>
     )
 }
