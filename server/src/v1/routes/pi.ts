@@ -4,15 +4,13 @@ import { piCalculator } from "../../utils/piCalculator";
 
 const router = express.Router();
 
-const MAX_PRECISION_FREE_USER = 15;
-
 router.get("/pi", (req: Request, res: Response) => {
   const isPaidUser = res.locals.paidUser;
   const counter = isPaidUser
     ? parseInt(res.locals.counter)
-    : MAX_PRECISION_FREE_USER;
+    : res.locals.MAX_PRECISION_FREE_USER;
   const pi = piCalculator([counter]);
-  res.status(200).send({ pi, length: pi.length });
+  res.status(200).send({ pi, length: pi.length - 2 });
 });
 
 router.get("/pi/:digit", (req: Request, res: Response) => {
@@ -20,15 +18,16 @@ router.get("/pi/:digit", (req: Request, res: Response) => {
   const isPaidUser = res.locals.paidUser;
   if (
     isPaidUser ||
-    (!isPaidUser && parseInt(req.params.digit) <= MAX_PRECISION_FREE_USER)
+    (!isPaidUser &&
+      parseInt(req.params.digit) <= res.locals.MAX_PRECISION_FREE_USER)
   ) {
     digit = parseInt(req.params.digit);
   } else {
-    digit = MAX_PRECISION_FREE_USER;
+    digit = res.locals.MAX_PRECISION_FREE_USER;
   }
   const pi = piCalculator([digit]);
 
-  res.status(200).send({ pi, length: pi.length });
+  res.status(200).send({ pi, length: pi.length - 2 });
 });
 
 export default router;

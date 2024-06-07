@@ -50,7 +50,7 @@ const PiCalculator = (): JSX.Element => {
                 const response = await getLatestPiWithPrecission(piDigit)
                 setLoadingFetchButton(false)
                 setPiValue(response.pi)
-                setServerPiDigit(response.length - 2)
+                setServerPiDigit(response.length)
             } catch (e: any) {
                 setLoadingFetchButton(false)
                 console.log(e)
@@ -60,7 +60,7 @@ const PiCalculator = (): JSX.Element => {
                 const response = await getLatestPi()
                 setLoadingFetchButton(false)
                 setPiValue(response.pi)
-                setServerPiDigit(response.length - 2)
+                setServerPiDigit(response.length)
             } catch (e: any) {
                 setLoadingFetchButton(false)
                 console.log(e)
@@ -71,22 +71,21 @@ const PiCalculator = (): JSX.Element => {
 
     return (
         <>
-            <div>
-                <div className="flex sm:flex-row flex-col sm:items-center items-start">
-                    <h1 className="text-lg font-bold">Get Latest Pi Value!</h1>
-                    <pre className="sm:mx-3 mx-0 sm:my-0 my-3 p-1 text-sm bg-slate-200 rounded-lg"><code>{`Current Server precision: ${serverPiDigit}`}</code></pre>
-                    {
-                        loadingUpgradeButton ?
-                            <button className="flex justify-center items-center h-[30px] w-[130px] p-3 my-3 mr-2">
-                                <LoadingSpinnerSmall />
-                            </button>
-                            :
-                            <button onClick={handleUpgradeClick} className={`bg-green-400 hover:bg-green-500 flex items-center justify-center h-[30px] w-[130px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg ${isPaidUser ? "hidden" : ""}`} >Upgrade Now!
-                            </button>
-                    }
-                </div>
-                <p className="py-2">The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest value. You can even specify the precision by specifying it manually. Free users only get up to 15 decimal precision. Upgrade to get unlimited precision!</p>
+            <div className="flex sm:flex-row flex-col sm:items-center items-start">
+                <h1 className="text-lg font-bold">Get Latest Pi Value!</h1>
+                <pre className="sm:mx-3 mx-0 sm:my-0 my-3 p-1 text-sm bg-slate-200 rounded-lg"><code>{`Server PI length: ${serverPiDigit}`}</code></pre>
+                {
+                    loadingUpgradeButton ?
+                        <button disabled className="flex justify-center items-center h-[30px] w-[130px] p-3 my-3 mr-2">
+                            <LoadingSpinnerSmall />
+                        </button>
+                        :
+                        <button onClick={handleUpgradeClick} className={`bg-green-400 hover:bg-green-500 flex items-center justify-center h-[30px] w-[130px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg ${isPaidUser ? "hidden" : ""}`} >Upgrade Now!
+                        </button>
+                }
             </div>
+            <p className="py-2">The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest value. You can even specify the precision by specifying it manually. Free users only get up to 15 decimal precision. Upgrade to get unlimited precision!</p>
+
             <div className="flex items-center justify-between sm:flex-row flex-col">
                 <div className="flex lg:flex-row flex-col items-center sm:w-[550px] w-full xl:mr-0 mr-2">
                     <input onChange={handlePiPrecissionInput} className="border p-3 rounded-lg w-full" type="number" min={0} placeholder="Manual Precision" />
@@ -101,7 +100,7 @@ const PiCalculator = (): JSX.Element => {
 
                     {
                         loadingFetchButton ?
-                            <button className="flex justify-center items-center border-blue-400 bg-blue-400 h-[50px]  w-[100px] p-3 my-3 text-white cursor-not-allowed rounded-lg">
+                            <button disabled className="flex justify-center items-center border-blue-400 bg-blue-400 h-[50px]  w-[100px] p-3 my-3 text-white cursor-not-allowed rounded-lg">
                                 <LoadingSpinnerSmall />
                             </button>
                             :

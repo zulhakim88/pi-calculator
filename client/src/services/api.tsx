@@ -1,12 +1,16 @@
-import { GetPiDataType, UserPaidStatusType } from "../lib/types"
+import { CircumferenceDataType, PiDataType, UserPaidStatusType } from "../lib/types"
 import service from "./axios"
 
 export const getLatestPi = () => {
-    return service.get<void, GetPiDataType>('/v1/pi')
+    return service.get<void, PiDataType>('/v1/pi')
 }
 
 export const getLatestPiWithPrecission = (digit: number) => {
-    return service.get<void, GetPiDataType>(`/v1/pi/${digit}`)
+    return service.get<void, PiDataType>(`/v1/pi/${digit}`)
+}
+
+export const getCircumference = (radius: number) => {
+    return service.get<void, CircumferenceDataType>(`/v1/circumference/${radius}`)
 }
 
 export const upgradeUser = () => {

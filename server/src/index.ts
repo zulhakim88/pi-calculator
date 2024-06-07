@@ -7,6 +7,7 @@ import circumferenceRouter from "./v1/routes/circumference";
 import { validateRequestToken } from "./middleware/auth";
 
 let COUNTER = 0;
+const MAX_PRECISION_FREE_USER = 15;
 
 const app = express();
 
@@ -22,12 +23,13 @@ const PORT = 4000;
 
 const getCounter = (req: Request, res: Response, next: NextFunction) => {
   res.locals.counter = COUNTER.toString();
+  res.locals.MAX_PRECISION_FREE_USER = MAX_PRECISION_FREE_USER;
   next();
 };
 
 app.use("/api", validateRequestToken);
 app.use("/api/v1", getCounter, piRouter);
-app.use("/api/v1", circumferenceRouter);
+app.use("/api/v1", getCounter, circumferenceRouter);
 app.use("/api/v1", userRouter);
 
 app.listen(PORT, () => {

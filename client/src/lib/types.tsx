@@ -10,9 +10,14 @@ export interface UserAttribute {
     confirmPassword?: string
 }
 
-export interface GetPiDataType {
+export interface PiDataType {
     length: number,
     pi: string
+}
+
+export interface CircumferenceDataType {
+    circumference: string,
+    piLength: number
 }
 
 export interface UserPaidStatusType {
