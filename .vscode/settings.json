@@ -6,6 +6,7 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
+  "css.customData": [".vscode/css_custom_data.json"],
   "editor.wordWrap": "on",
   // Add those two lines:
   "editor.formatOnSave": true, // Tell VSCode to format files on save
