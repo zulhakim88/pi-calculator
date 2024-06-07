@@ -17,7 +17,7 @@ const Home = (): JSX.Element => {
       <div className="grid grid-cols-4 p-3">
         <div className="sm:col-span-4 col-span-full bg-white mb-3 p-4 rounded-md">
           <h1 className="text-2xl font-bold pb-2">Welcome {user.displayName}!</h1>
-          <div className="flex flex-col justify-between overflow-scroll p-3 bg-gray-200 rounded-md max-h-[200px]">
+          <div className="flex flex-col justify-between overflow-scroll p-3 bg-gray-200 rounded-md">
             <div>
               <h2 className="font-bold mb-2">Objective</h2>
               <ol className="list-disc pl-5 text-sm">
