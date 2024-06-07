@@ -2,12 +2,17 @@ export interface ChildrenElement {
     children: JSX.Element | JSX.Element[]
 }
 
-export interface UserAttribute {
-    firstName?: string,
-    lastName?: string,
+export interface RegisterUserAttribute {
+    firstName: string,
+    lastName: string,
     email: string,
     password: string,
-    confirmPassword?: string
+    confirmPassword: string | null
+}
+
+export interface LoginUserAttribute {
+    email: string,
+    password: string
 }
 
 export interface PiDataType {

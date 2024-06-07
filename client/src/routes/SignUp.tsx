@@ -5,11 +5,11 @@ import {
   useNavigate
 } from 'react-router-dom'
 import { useUserAuth } from '../context/AuthContext'
-import { UserAttribute } from '../lib/types'
+import { RegisterUserAttribute } from '../lib/types'
 import { LoadingSpinnerBig } from '../assets/svg'
 
 const SignUp = (): JSX.Element => {
-  const [registerForm, setRegisterForm] = useState<UserAttribute>({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "" })
+  const [registerForm, setRegisterForm] = useState<RegisterUserAttribute>({ firstName: "", lastName: "", email: "", password: "", confirmPassword: "" })
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 

@@ -10,7 +10,7 @@ import {
     AuthErrorCodes
 } from 'firebase/auth'
 import { auth } from '../firebase'
-import { ChildrenElement, UserAttribute } from '../lib/types'
+import { ChildrenElement, RegisterUserAttribute, LoginUserAttribute } from '../lib/types'
 import { setUserAsFreeUser } from '../services/api'
 import { LoadingSpinnerPage } from '../assets/svg'
 
@@ -18,8 +18,8 @@ interface AuthStateContext {
     user: FirebaseUser | null,
     isPaidUser: boolean,
     setIsPaidUser: React.Dispatch<React.SetStateAction<boolean>>,
-    registerUser: ({ firstName, lastName, email, password }: UserAttribute) => Promise<FirebaseUserCredential>
-    login: ({ email, password }: UserAttribute) => Promise<FirebaseUserCredential>
+    registerUser: ({ firstName, lastName, email, password }: RegisterUserAttribute) => Promise<FirebaseUserCredential>
+    login: ({ email, password }: LoginUserAttribute) => Promise<FirebaseUserCredential>
     logout: () => Promise<void>
 }
 
@@ -30,7 +30,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
     const [loading, setLoading] = useState<boolean>(true)
     const [isPaidUser, setIsPaidUser] = useState<boolean>(false)
 
-    const registerUser = async ({ firstName, lastName, email, password }: UserAttribute) => {
+    const registerUser = async ({ firstName, lastName, email, password }: RegisterUserAttribute) => {
         try {
             const createdUser = await createUserWithEmailAndPassword(auth, email, password)
             await updateProfile(createdUser.user, { displayName: `${firstName} ${lastName}` })
@@ -52,7 +52,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
         }
     }
 
-    const login = async ({ email, password }: UserAttribute) => {
+    const login = async ({ email, password }: LoginUserAttribute) => {
         try {
             const signInUser = await signInWithEmailAndPassword(auth, email, password)
             const idToken = await signInUser.user.getIdToken()

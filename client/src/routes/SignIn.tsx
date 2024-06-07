@@ -4,12 +4,12 @@ import {
   Navigate,
   useNavigate
 } from 'react-router-dom'
-import { UserAttribute } from '../lib/types'
+import { LoginUserAttribute } from '../lib/types'
 import { useUserAuth } from '../context/AuthContext'
 import { LoadingSpinnerBig } from '../assets/svg'
 
 const SignIn = (): JSX.Element => {
-  const [loginForm, setLoginForm] = useState<UserAttribute>({ email: "", password: "" })
+  const [loginForm, setLoginForm] = useState<LoginUserAttribute>({ email: "", password: "" })
   const [error, setError] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
 
