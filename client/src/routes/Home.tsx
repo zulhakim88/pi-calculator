@@ -15,7 +15,7 @@ const Home = (): JSX.Element => {
     <div className="min-h-screen bg-sky-100">
       <Header />
       <div className="grid grid-cols-4 p-3">
-        <div className="sm:col-span-4 col-span-full bg-white mb-3 p-4 rounded-md">
+        <div className="sm:col-span-4 col-span-full bg-white mb-3 p-3 rounded-md">
           <h1 className="text-2xl font-bold pb-2">Welcome {user.displayName}!</h1>
           <div className="flex flex-col justify-between overflow-scroll p-3 bg-gray-200 rounded-md">
             <div>
@@ -53,10 +53,10 @@ const Home = (): JSX.Element => {
             </div>
           </div>
         </div>
-        <div className="sm:col-span-3 col-span-full bg-white sm:mr-3 mr-0 sm:mb-0 mb-3 p-4 rounded-md">
+        <div className="sm:col-span-3 col-span-full bg-white sm:mr-3 mr-0 sm:mb-0 mb-3 p-3 rounded-md">
           <PiCalculator />
         </div>
-        <div className="sm:col-span-1 col-span-full bg-white p-4 rounded-md">
+        <div className="sm:col-span-1 col-span-full bg-white p-3 rounded-md">
           <CircumferenceCalculator />
         </div>
       </div>

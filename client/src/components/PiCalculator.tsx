@@ -71,16 +71,16 @@ const PiCalculator = (): JSX.Element => {
 
     return (
         <>
-            <div className="flex sm:flex-row flex-col sm:items-center items-start">
+            <div className="flex sm:flex-row flex-col items-start">
                 <h1 className="text-lg font-bold">Get Latest Pi Value!</h1>
                 <pre className="sm:mx-3 mx-0 sm:my-0 my-3 py-1 px-2 text-sm bg-slate-200 rounded-md"><code>{`Server PI length: ${serverPiDigit}`}</code></pre>
                 {
                     loadingUpgradeButton ?
-                        <button disabled className="flex justify-center items-center h-[30px] w-[130px] p-3 my-3 mr-2">
+                        <button disabled className="flex justify-center items-center bg-green-400 hover:bg-green-500 h-[30px] w-[130px] rounded-md p-3 mr-2">
                             <LoadingSpinnerSmall />
                         </button>
                         :
-                        <button onClick={handleUpgradeClick} className={`bg-green-400 hover:bg-green-500 flex items-center justify-center h-[30px] w-[130px] p-3 my-3 mr-2 text-white cursor-pointer rounded-md ${isPaidUser ? "hidden" : ""}`} >Upgrade Now!
+                        <button onClick={handleUpgradeClick} className={`flex justify-center items-center bg-green-400 hover:bg-green-500 h-[30px] w-[130px] p-3 mr-2 text-white cursor-pointer rounded-md ${isPaidUser ? "hidden" : ""}`} >Upgrade Now!
                         </button>
                 }
             </div>
