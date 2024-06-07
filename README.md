@@ -43,6 +43,8 @@ You will need this to run the project:
 
 - npm
 - vite (to build the frontend)
+- firebase app credentials on the client side for authentication processes (register, login, logout users)
+- firebase-admin credentials on the server side for user management prciesses (add custom claims, update user information)
 
 ### Start the server
 
