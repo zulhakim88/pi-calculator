@@ -73,14 +73,14 @@ const PiCalculator = (): JSX.Element => {
         <>
             <div className="flex sm:flex-row flex-col sm:items-center items-start">
                 <h1 className="text-lg font-bold">Get Latest Pi Value!</h1>
-                <pre className="sm:mx-3 mx-0 sm:my-0 my-3 p-1 text-sm bg-slate-200 rounded-lg"><code>{`Server PI length: ${serverPiDigit}`}</code></pre>
+                <pre className="sm:mx-3 mx-0 sm:my-0 my-3 py-1 px-2 text-sm bg-slate-200 rounded-md"><code>{`Server PI length: ${serverPiDigit}`}</code></pre>
                 {
                     loadingUpgradeButton ?
                         <button disabled className="flex justify-center items-center h-[30px] w-[130px] p-3 my-3 mr-2">
                             <LoadingSpinnerSmall />
                         </button>
                         :
-                        <button onClick={handleUpgradeClick} className={`bg-green-400 hover:bg-green-500 flex items-center justify-center h-[30px] w-[130px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg ${isPaidUser ? "hidden" : ""}`} >Upgrade Now!
+                        <button onClick={handleUpgradeClick} className={`bg-green-400 hover:bg-green-500 flex items-center justify-center h-[30px] w-[130px] p-3 my-3 mr-2 text-white cursor-pointer rounded-md ${isPaidUser ? "hidden" : ""}`} >Upgrade Now!
                         </button>
                 }
             </div>
@@ -88,28 +88,28 @@ const PiCalculator = (): JSX.Element => {
 
             <div className="flex items-center justify-between sm:flex-row flex-col">
                 <div className="flex lg:flex-row flex-col items-center sm:w-[550px] w-full xl:mr-0 mr-2">
-                    <input onChange={handlePiPrecissionInput} className="border p-3 rounded-lg w-full" type="number" min={0} placeholder="Manual Precision" />
+                    <input onChange={handlePiPrecissionInput} className="border p-3 rounded-md w-full" type="number" min={0} placeholder="Manual Precision" />
                 </div>
                 <div className='flex items-center sm:justify-normal justify-center'>
                     {
                         copied ?
-                            <button className=" bg-green-400 hover:bg-green-500 flex items-center justify-center h-[50px] w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copied!</button>
+                            <button className=" bg-green-400 hover:bg-green-500 flex items-center justify-center h-[50px] w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-md">Copied!</button>
                             :
-                            <button onClick={handleCopyClick} className=" bg-green-400 hover:bg-green-500 flex items-center justify-center h-[50px] w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-lg">Copy</button>
+                            <button onClick={handleCopyClick} className=" bg-green-400 hover:bg-green-500 flex items-center justify-center h-[50px] w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-md">Copy</button>
                     }
 
                     {
                         loadingFetchButton ?
-                            <button disabled className="flex justify-center items-center border-blue-400 bg-blue-400 h-[50px]  w-[100px] p-3 my-3 text-white cursor-not-allowed rounded-lg">
+                            <button disabled className="flex justify-center items-center border-blue-400 bg-blue-400 h-[50px]  w-[100px] p-3 my-3 text-white cursor-not-allowed rounded-md">
                                 <LoadingSpinnerSmall />
                             </button>
                             :
-                            <button onClick={handleFetchClick} className="border-blue-400 bg-blue-400 hover:bg-blue-600 h-[50px] w-[100px] p-3 my-3 text-white cursor-pointer rounded-lg">Fetch</button>
+                            <button onClick={handleFetchClick} className="border-blue-400 bg-blue-400 hover:bg-blue-600 h-[50px] w-[100px] p-3 my-3 text-white cursor-pointer rounded-md">Fetch</button>
                     }
                 </div>
 
             </div>
-            <textarea className="p-4 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400 overflow-x-hidden" cols={100} rows={4} value={piValue} disabled></textarea>
+            <textarea className="p-2 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400 overflow-x-hidden text-sm" cols={100} rows={5} value={piValue} disabled></textarea>
         </>
     )
 }
