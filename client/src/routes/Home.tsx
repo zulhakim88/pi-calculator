@@ -39,7 +39,7 @@ const Home = (): JSX.Element => {
                   Why did I build this then? I was wondering until I can't sleep! So I started building the Calculator 🤣.
                 </li>
                 <li>
-                  Longest PI memorized is <Link className="underline text-blue-500" to="https://www.timesnownews.com/viral/pi-day-2023-meet-rajveer-meena-who-recited-70000-pi-digits-blindfolded-article-98605930#:~:text=In%20the%20endless%20pursuit%20of,Read%20More&text=Rajveer%20Meena%20memorised%20and%20recited,70%2C000%20decimal%20places%20while%20blindfolded." target="_blank">here</Link> (So I'm not the only one wondering 🤪).
+                  Longest PI memorized is <Link className="underline text-blue-500" to="https://www.timesnownews.com/viral/pi-day-2023-meet-rajveer-meena-who-recited-70000-pi-digits-blindfolded-article-98605930#:~:text=In%20the%20endless%20pursuit%20of,Read%20More&text=Rajveer%20Meena%20memorised%20and%20recited,70%2C000%20decimal%20places%20while%20blindfolded." target="_blank">here</Link> (Guess I'm not the only one wondering 🤪).
                 </li>
               </ol>
             </div>
