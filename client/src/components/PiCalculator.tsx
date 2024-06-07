@@ -86,28 +86,27 @@ const PiCalculator = (): JSX.Element => {
             </div>
             <p className="py-2">The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest value. You can even specify the precision by specifying it manually. Free users only get up to 15 decimal precision. Upgrade to get unlimited precision!</p>
 
-            <div className="flex items-center justify-between sm:flex-row flex-col">
+            <div className="flex pt-1 mb-3 items-start justify-between sm:flex-row flex-col">
                 <div className="flex lg:flex-row flex-col items-center sm:w-[550px] w-full xl:mr-0 mr-2">
                     <input onChange={handlePiPrecissionInput} className="border p-3 rounded-md w-full" type="number" min={0} placeholder="Manual Precision" />
                 </div>
-                <div className='flex items-center sm:justify-normal justify-center'>
+                <div className='flex items-start sm:justify-normal justify-center'>
                     {
                         copied ?
-                            <button className=" bg-green-400 hover:bg-green-500 flex items-center justify-center h-[50px] w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-md">Copied!</button>
+                            <button className=" bg-green-400 hover:bg-green-500 mr-2 flex items-center justify-center h-[50px] w-[100px] p-3 text-white cursor-pointer rounded-md">Copied!</button>
                             :
-                            <button onClick={handleCopyClick} className=" bg-green-400 hover:bg-green-500 flex items-center justify-center h-[50px] w-[100px] p-3 my-3 mr-2 text-white cursor-pointer rounded-md">Copy</button>
+                            <button onClick={handleCopyClick} className=" bg-green-400 hover:bg-green-500 flex items-center justify-center h-[50px] w-[100px] p-3 mr-2 text-white cursor-pointer rounded-md">Copy</button>
                     }
 
                     {
                         loadingFetchButton ?
-                            <button disabled className="flex justify-center items-center border-blue-400 bg-blue-400 h-[50px]  w-[100px] p-3 my-3 text-white cursor-not-allowed rounded-md">
+                            <button disabled className="flex justify-center items-center border-blue-400 bg-blue-400 h-[50px] w-[100px] p-3 text-white cursor-not-allowed rounded-md">
                                 <LoadingSpinnerSmall />
                             </button>
                             :
-                            <button onClick={handleFetchClick} className="border-blue-400 bg-blue-400 hover:bg-blue-600 h-[50px] w-[100px] p-3 my-3 text-white cursor-pointer rounded-md">Fetch</button>
+                            <button onClick={handleFetchClick} className="border-blue-400 bg-blue-400 hover:bg-blue-600 h-[50px] w-[100px] p-3 text-white cursor-pointer rounded-md">Fetch</button>
                     }
                 </div>
-
             </div>
             <textarea className="p-2 w-full bg-gray-200 rounded-md resize-none border-solid border-2 border-gray-400 overflow-x-hidden text-sm" cols={100} rows={5} value={piValue} disabled></textarea>
         </>
