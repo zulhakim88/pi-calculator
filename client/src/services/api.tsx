@@ -2,21 +2,21 @@ import { CircumferenceDataType, PiDataType, UserPaidStatusType } from "../lib/ty
 import service from "./axios"
 
 export const getLatestPi = () => {
-    return service.get<void, PiDataType>('/v1/pi')
+	return service.get<void, PiDataType>("/v1/pi")
 }
 
 export const getLatestPiWithPrecission = (digit: number) => {
-    return service.get<void, PiDataType>(`/v1/pi/${digit}`)
+	return service.get<void, PiDataType>(`/v1/pi/${digit}`)
 }
 
 export const getCircumference = (radius: number) => {
-    return service.get<void, CircumferenceDataType>(`/v1/circumference/${radius}`)
+	return service.get<void, CircumferenceDataType>(`/v1/circumference/${radius}`)
 }
 
 export const upgradeUser = () => {
-    return service.get<void, UserPaidStatusType>(`/v1/user/upgrade`)
+	return service.get<void, UserPaidStatusType>(`/v1/user/upgrade`)
 }
 
 export const setUserAsFreeUser = () => {
-    return service.get<void, UserPaidStatusType>(`/v1/user/default-claims`)
+	return service.get<void, UserPaidStatusType>(`/v1/user/default-claims`)
 }
