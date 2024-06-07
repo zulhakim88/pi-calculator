@@ -56,10 +56,10 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
         try {
             const signInUser = await signInWithEmailAndPassword(auth, email, password)
             const idToken = await signInUser.user.getIdToken()
+            localStorage.setItem("token", `Bearer ${idToken}`)
             const decodedToken = await signInUser.user.getIdTokenResult()
             const isPaidUser = decodedToken.claims.paiduser ? decodedToken.claims.paiduser : false
             setIsPaidUser(isPaidUser as boolean)
-            localStorage.setItem("token", `Bearer ${idToken}`)
             return signInUser
         } catch (error: any) {
             if (error.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {

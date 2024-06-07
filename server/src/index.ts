@@ -22,7 +22,10 @@ app.use(cors(corsOptions));
 const PORT = 4000;
 
 const getCounter = (req: Request, res: Response, next: NextFunction) => {
-  res.locals.counter = COUNTER.toString();
+  const isPaidUser = res.locals.paidUser;
+  res.locals.counter = isPaidUser
+    ? COUNTER.toString()
+    : MAX_PRECISION_FREE_USER;
   res.locals.MAX_PRECISION_FREE_USER = MAX_PRECISION_FREE_USER;
   next();
 };
