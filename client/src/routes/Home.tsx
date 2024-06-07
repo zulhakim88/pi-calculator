@@ -17,7 +17,7 @@ const Home = (): JSX.Element => {
       <div className="grid grid-cols-4 p-3">
         <div className="sm:col-span-4 col-span-full bg-white mb-3 p-4 rounded-md">
           <h1 className="text-2xl font-bold pb-2">Welcome {user.displayName}!</h1>
-          <p className="flex flex-col justify-between overflow-scroll p-3 bg-gray-200 rounded-md max-h-[200px]">
+          <div className="flex flex-col justify-between overflow-scroll p-3 bg-gray-200 rounded-md max-h-[200px]">
             <div>
               <h2 className="font-bold mb-2">Objective</h2>
               <ol className="list-disc pl-5 text-sm">
@@ -51,7 +51,7 @@ const Home = (): JSX.Element => {
                 </li>
               </ol>
             </div>
-          </p>
+          </div>
         </div>
         <div className="sm:col-span-3 col-span-full bg-white sm:mr-3 mr-0 sm:mb-0 mb-3 p-4 rounded-md">
           <PiCalculator />
