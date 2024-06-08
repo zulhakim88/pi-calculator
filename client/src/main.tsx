@@ -8,7 +8,7 @@ import Home from "./routes/Home.tsx"
 import ProtectedRoutes from "./util/ProtectedRoutes.tsx"
 import "./index.css"
 
-const router = createBrowserRouter([
+export const router = createBrowserRouter([
 	{ path: "/signin", element: <SignIn /> },
 	{ path: "/signup", element: <SignUp /> },
 	{

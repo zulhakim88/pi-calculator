@@ -6,25 +6,20 @@ import {
 	signOut,
 	onAuthStateChanged,
 	User as FirebaseUser,
-	UserCredential as FirebaseUserCredential,
 	AuthErrorCodes,
 } from "firebase/auth"
-import { auth } from "../firebase"
+import { auth } from "../config/firebase"
 import { ChildrenElement, RegisterUserAttribute, LoginUserAttribute } from "../lib/types"
-import { setUserAsFreeUser } from "../services/api"
 import { LoadingSpinnerPage } from "../assets/svg"
+import { router } from "../main"
 
 interface AuthStateContext {
 	user: FirebaseUser | null
+	displayName: string
 	isPaidUser: boolean
 	setIsPaidUser: React.Dispatch<React.SetStateAction<boolean>>
-	registerUser: ({
-		firstName,
-		lastName,
-		email,
-		password,
-	}: RegisterUserAttribute) => Promise<FirebaseUserCredential>
-	login: ({ email, password }: LoginUserAttribute) => Promise<FirebaseUserCredential>
+	registerUser: ({ firstName, lastName, email, password }: RegisterUserAttribute) => Promise<void>
+	login: ({ email, password }: LoginUserAttribute) => Promise<void>
 	logout: () => Promise<void>
 }
 
@@ -32,18 +27,15 @@ const UserContext = createContext({} as AuthStateContext)
 
 export const AuthContextProvider = ({ children }: ChildrenElement) => {
 	const [user, setUser] = useState<FirebaseUser | null>(null)
+	const [displayName, setDisplayName] = useState<string>("")
 	const [loading, setLoading] = useState<boolean>(true)
 	const [isPaidUser, setIsPaidUser] = useState<boolean>(false)
 
 	const registerUser = async ({ firstName, lastName, email, password }: RegisterUserAttribute) => {
 		try {
+			setDisplayName(`${firstName} ${lastName}`)
 			const createdUser = await createUserWithEmailAndPassword(auth, email, password)
 			await updateProfile(createdUser.user, { displayName: `${firstName} ${lastName}` })
-			const idToken = await createdUser.user.getIdTokenResult(true)
-			localStorage.setItem("token", `Bearer ${idToken.token}`)
-			const isPaidUser = await setUserAsFreeUser()
-			setIsPaidUser(isPaidUser.isPaidUser)
-			return createdUser
 		} catch (error: any) {
 			if (error.code === AuthErrorCodes.EMAIL_EXISTS) {
 				throw new Error("The Email has been registered!")
@@ -59,13 +51,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 
 	const login = async ({ email, password }: LoginUserAttribute) => {
 		try {
-			const signInUser = await signInWithEmailAndPassword(auth, email, password)
-			const idToken = await signInUser.user.getIdToken()
-			localStorage.setItem("token", `Bearer ${idToken}`)
-			const decodedToken = await signInUser.user.getIdTokenResult()
-			const isPaidUser = decodedToken.claims.paiduser ? decodedToken.claims.paiduser : false
-			setIsPaidUser(isPaidUser as boolean)
-			return signInUser
+			await signInWithEmailAndPassword(auth, email, password)
 		} catch (error: any) {
 			if (error.code === AuthErrorCodes.INVALID_LOGIN_CREDENTIALS) {
 				throw new Error("Invalid User!")
@@ -97,9 +83,13 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 			localStorage.clear()
 			const tokenDetails = await currentUser?.getIdTokenResult(true)
 			localStorage.setItem("token", tokenDetails?.token ? `Bearer ${tokenDetails?.token}` : "")
-			setUser(currentUser)
 			setIsPaidUser(tokenDetails?.claims.paiduser as boolean)
 			setLoading(false)
+			setUser(currentUser)
+			if (currentUser && currentUser.displayName) {
+				setDisplayName(currentUser.displayName)
+			}
+			router.navigate("/")
 		})
 		return () => {
 			unsubscribe()
@@ -118,7 +108,9 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 	}
 
 	return (
-		<UserContext.Provider value={{ registerUser, user, setIsPaidUser, logout, login, isPaidUser }}>
+		<UserContext.Provider
+			value={{ registerUser, user, displayName, setIsPaidUser, logout, login, isPaidUser }}
+		>
 			{children}
 		</UserContext.Provider>
 	)

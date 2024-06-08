@@ -7,7 +7,7 @@ export interface RegisterUserAttribute {
 	lastName: string
 	email: string
 	password: string
-	confirmPassword: string | null
+	confirmPassword: string
 }
 
 export interface LoginUserAttribute {

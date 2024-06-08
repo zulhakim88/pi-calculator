@@ -1,8 +1,9 @@
 import React, { useState } from "react"
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { useUserAuth } from "../context/AuthContext"
 import { RegisterUserAttribute } from "../lib/types"
 import { LoadingSpinnerBig } from "../assets/svg"
+import Input from "../components/Input"
 
 const SignUp = (): JSX.Element => {
 	const [registerForm, setRegisterForm] = useState<RegisterUserAttribute>({
@@ -15,7 +16,6 @@ const SignUp = (): JSX.Element => {
 	const [error, setError] = useState<string>("")
 	const [loading, setLoading] = useState<boolean>(false)
 
-	const navigate = useNavigate()
 	const { registerUser, user } = useUserAuth()
 
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,11 +30,11 @@ const SignUp = (): JSX.Element => {
 		setError("")
 		setLoading(true)
 		if (
-			(registerForm.firstName ||
-				registerForm.lastName ||
-				registerForm.email ||
-				registerForm.password ||
-				registerForm.confirmPassword) === ""
+			!registerForm.firstName ||
+			!registerForm.lastName ||
+			!registerForm.password ||
+			!registerForm.email ||
+			!registerForm.confirmPassword
 		) {
 			setError("One or more fields are empty!")
 			setLoading(false)
@@ -48,7 +48,6 @@ const SignUp = (): JSX.Element => {
 		try {
 			await registerUser(registerForm)
 			setLoading(false)
-			navigate("/")
 		} catch (error: any) {
 			setLoading(false)
 			setError(error.message)
@@ -73,57 +72,46 @@ const SignUp = (): JSX.Element => {
 				</div>
 				<form onSubmit={handleFormSubmit} className="w-full">
 					<div className="flex flex-row justify-between gap-3">
-						<div className="flex w-60 flex-col py-2">
-							<label className="py-2 font-medium">First Name</label>
-							<input
+						<div className="w-60">
+							<Input
 								onChange={handleInput}
-								className="rounded-lg border p-3"
 								type="text"
 								name="firstName"
-								placeholder="First Name..."
+								value={registerForm.firstName}
+								label="First Name"
 							/>
 						</div>
-						<div className="flex w-60 flex-col py-2">
-							<label className="py-2 font-medium">Last Name</label>
-							<input
+						<div className="w-60">
+							<Input
 								onChange={handleInput}
-								className="rounded-lg border p-3"
 								type="text"
 								name="lastName"
-								placeholder="Last Name..."
+								value={registerForm.lastName}
+								label="Last Name"
 							/>
 						</div>
 					</div>
-					<div className="flex flex-col py-2">
-						<label className="py-2 font-medium">Email Address</label>
-						<input
-							onChange={handleInput}
-							className="rounded-lg border p-3"
-							type="email"
-							name="email"
-							placeholder="Email..."
-						/>
-					</div>
-					<div className="flex flex-col py-2">
-						<label className="py-2 font-medium">Password</label>
-						<input
-							onChange={handleInput}
-							className="rounded-lg border p-3"
-							type="password"
-							name="password"
-							placeholder="Password..."
-						/>
-					</div>
-					<div className="flex flex-col py-2">
-						<label className="py-2 font-medium">Confirm Password</label>
-						<input
-							onChange={handleInput}
-							className="rounded-lg border p-3"
-							type="password"
-							name="confirmPassword"
-							placeholder="Confirmed Password..."
-						/>
-					</div>
+					<Input
+						onChange={handleInput}
+						type="email"
+						name="email"
+						value={registerForm.email}
+						label="Email Address"
+					/>
+					<Input
+						onChange={handleInput}
+						type="password"
+						name="password"
+						value={registerForm.password}
+						label="Password"
+					/>
+					<Input
+						onChange={handleInput}
+						type="password"
+						name="confirmPassword"
+						value={registerForm.confirmPassword}
+						label="Confirm Password"
+					/>
 					{loading ? (
 						<button
 							disabled

@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { getLatestPi, getLatestPiWithPrecission, upgradeUser } from "../services/api"
+import { downgradeUser, getLatestPi, getLatestPiWithPrecission, upgradeUser } from "../services/api"
 import { useUserAuth } from "../context/AuthContext"
 import { LoadingSpinnerSmall } from "../assets/svg"
 
@@ -29,11 +29,16 @@ const PiCalculator = (): JSX.Element => {
 		}
 	}
 
-	const handleUpgradeClick = async () => {
+	const handleChangeUserTierClick = async () => {
 		setLoadingUpgradeButton(true)
 
 		try {
-			const response = await upgradeUser()
+			let response
+			if (isPaidUser) {
+				response = await downgradeUser()
+			} else {
+				response = await upgradeUser()
+			}
 			setLoadingUpgradeButton(false)
 			setIsPaidUser(response.isPaidUser)
 		} catch (e: any) {
@@ -78,16 +83,16 @@ const PiCalculator = (): JSX.Element => {
 				{loadingUpgradeButton ? (
 					<button
 						disabled
-						className="mr-2 flex h-[30px] w-[130px] items-center justify-center rounded-md bg-green-400 p-3 hover:bg-green-500"
+						className="flex h-[30px] w-[150px] items-center justify-center rounded-md bg-green-400 p-3 hover:bg-green-500"
 					>
 						<LoadingSpinnerSmall />
 					</button>
 				) : (
 					<button
-						onClick={handleUpgradeClick}
-						className={`mr-2 flex h-[30px] w-[130px] cursor-pointer items-center justify-center rounded-md bg-green-400 p-3 text-white hover:bg-green-500 ${isPaidUser ? "hidden" : ""}`}
+						onClick={handleChangeUserTierClick}
+						className="flex h-[30px] w-[150px] cursor-pointer items-center justify-center rounded-md bg-green-400 p-3 text-white hover:bg-green-500"
 					>
-						Upgrade Now!
+						{isPaidUser ? "Downgrade User" : "Upgrade User"}
 					</button>
 				)}
 			</div>
@@ -101,7 +106,7 @@ const PiCalculator = (): JSX.Element => {
 				<div className="mr-2 flex w-full flex-col items-center sm:w-[550px] lg:flex-row xl:mr-0">
 					<input
 						onChange={handlePiPrecissionInput}
-						className="w-full rounded-md border p-3"
+						className="w-full rounded-md border-2 p-3"
 						type="number"
 						min={0}
 						placeholder="Manual Precision"
@@ -139,9 +144,9 @@ const PiCalculator = (): JSX.Element => {
 				</div>
 			</div>
 			<textarea
-				className="w-full resize-none overflow-x-hidden rounded-md border-2 border-solid border-gray-400 bg-gray-200 p-2 text-sm"
+				className="w-full resize-none overflow-x-hidden rounded-md border-2 border-solid border-gray-400 bg-gray-200 p-2 font-mono text-xs"
 				cols={100}
-				rows={6}
+				rows={8}
 				value={piValue}
 				disabled
 			/>

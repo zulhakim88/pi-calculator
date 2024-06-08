@@ -1,15 +1,15 @@
 import React, { useState } from "react"
-import { Link, Navigate, useNavigate } from "react-router-dom"
+import { Link, Navigate } from "react-router-dom"
 import { LoginUserAttribute } from "../lib/types"
 import { useUserAuth } from "../context/AuthContext"
 import { LoadingSpinnerBig } from "../assets/svg"
+import Input from "../components/Input"
 
 const SignIn = (): JSX.Element => {
 	const [loginForm, setLoginForm] = useState<LoginUserAttribute>({ email: "", password: "" })
 	const [error, setError] = useState<string>("")
 	const [loading, setLoading] = useState<boolean>(false)
 
-	const navigate = useNavigate()
 	const { user, login } = useUserAuth()
 
 	const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -30,8 +30,6 @@ const SignIn = (): JSX.Element => {
 		}
 		try {
 			await login(loginForm)
-			setLoading(false)
-			navigate("/")
 		} catch (error: any) {
 			setLoading(false)
 			setError(error.message)
@@ -56,14 +54,20 @@ const SignIn = (): JSX.Element => {
 					</div>
 				</div>
 				<form onSubmit={handleFormSubmit} className="w-full">
-					<div className="flex flex-col py-2">
-						<label className="py-2 font-medium">Email Address</label>
-						<input onChange={handleInput} className="rounded-lg border p-3" type="email" name="email" required />
-					</div>
-					<div className="flex flex-col py-2">
-						<label className="py-2 font-medium">Password</label>
-						<input onChange={handleInput} className="rounded-lg border p-3" type="password" name="password" required />
-					</div>
+					<Input
+						onChange={handleInput}
+						value={loginForm.email}
+						type="email"
+						name="email"
+						label="Email Address"
+					/>
+					<Input
+						onChange={handleInput}
+						value={loginForm.password}
+						type="password"
+						name="password"
+						label="Password"
+					/>
 					{loading ? (
 						<button
 							disabled

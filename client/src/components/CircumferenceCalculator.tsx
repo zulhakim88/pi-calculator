@@ -4,12 +4,18 @@ import { LoadingSpinnerBig } from "../assets/svg"
 
 const CircumferenceCalculator = (): JSX.Element => {
 	const [radius, setRadius] = useState<number>(0)
+	const [errorNoRadius, setErrorNoRadius] = useState<boolean>(false)
 	const [serverPiLength, setServerPiLength] = useState<number>(0)
 	const [circumference, setCircumference] = useState<string>("")
 	const [loading, setLoading] = useState<boolean>(false)
 
 	const handleRadiusInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setRadius(parseInt(e.target.value))
+		if (e.target.value === "") {
+			setRadius(0)
+		} else {
+			setErrorNoRadius(false)
+			setRadius(parseInt(e.target.value))
+		}
 	}
 
 	const handleGetCircumference = async () => {
@@ -18,6 +24,7 @@ const CircumferenceCalculator = (): JSX.Element => {
 		setCircumference("")
 		if (radius === 0) {
 			setLoading(false)
+			setErrorNoRadius(true)
 		} else {
 			try {
 				const response = await getCircumference(radius)
@@ -39,15 +46,15 @@ const CircumferenceCalculator = (): JSX.Element => {
 					<code>{`Server PI length: ${serverPiLength}`}</code>
 				</pre>
 				<textarea
-					className="my-1 w-full resize-none overflow-x-hidden rounded-md border-2 border-solid border-gray-400 bg-gray-200 p-2 text-sm"
-					rows={4}
+					className="my-1 w-full resize-none overflow-x-hidden rounded-md border-2 border-solid border-gray-400 bg-gray-200 p-2 font-mono text-xs"
+					rows={6}
 					value={circumference}
 					disabled
 					placeholder="Culculated circumference..."
 				></textarea>
 				<input
 					onChange={handleRadiusInput}
-					className="my-1 rounded-md border p-3"
+					className={`my-1 rounded-md p-3 ${errorNoRadius ? "border-2 border-red-600" : "border-2"}`}
 					type="number"
 					name="radius"
 					placeholder="Input Radius..."

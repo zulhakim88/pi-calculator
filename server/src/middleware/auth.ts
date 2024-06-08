@@ -19,7 +19,11 @@ export const validateRequestToken = async (
   try {
     const decodedtoken = await admin.auth().verifyIdToken(token);
     const user = await admin.auth().getUser(decodedtoken.user_id);
-    res.locals.paidUser = user.customClaims?.paiduser;
+    if (!user.customClaims) {
+      res.locals.paidUser = false;
+    } else {
+      res.locals.paidUser = user.customClaims.paiduser;
+    }
   } catch (e: any) {
     return res.status(401).send({ error: "Unauthorized access" });
   }

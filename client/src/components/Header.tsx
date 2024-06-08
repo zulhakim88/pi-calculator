@@ -3,8 +3,12 @@ import { useUserAuth } from "../context/AuthContext"
 import { nameInitial } from "../util"
 import { useNavigate } from "react-router-dom"
 
-const Header = (): JSX.Element => {
-	const { user, logout } = useUserAuth()
+interface HeaderPropType {
+	displayName: string
+}
+
+const Header = ({ displayName }: HeaderPropType): JSX.Element => {
+	const { logout } = useUserAuth()
 	const navigate = useNavigate()
 
 	const handleLogout = async () => {
@@ -28,9 +32,11 @@ const Header = (): JSX.Element => {
 				<button onClick={handleLogout} className="mx-2 cursor-pointer text-center text-blue-400">
 					Logout
 				</button>
-				<button className="flex h-14 w-14 cursor-pointer items-center rounded-full bg-green-600 p-4 text-lg font-bold text-white">
-					{nameInitial(user && user.displayName)}
-				</button>
+				<div className="inline-block h-14 w-14 cursor-pointer rounded-full bg-green-600 p-4 text-lg font-bold text-white">
+					<span className="ml-[50%] mt-[50%] inline-block -translate-x-1/2 -translate-y-1/2">
+						{nameInitial(displayName)}
+					</span>
+				</div>
 			</div>
 		</div>
 	)

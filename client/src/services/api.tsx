@@ -1,5 +1,5 @@
 import { CircumferenceDataType, PiDataType, UserPaidStatusType } from "../lib/types"
-import service from "./axios"
+import service from "../config/axios"
 
 export const getLatestPi = () => {
 	return service.get<void, PiDataType>("/v1/pi")
@@ -17,6 +17,6 @@ export const upgradeUser = () => {
 	return service.get<void, UserPaidStatusType>(`/v1/user/upgrade`)
 }
 
-export const setUserAsFreeUser = () => {
-	return service.get<void, UserPaidStatusType>(`/v1/user/default-claims`)
+export const downgradeUser = () => {
+	return service.get<void, UserPaidStatusType>(`/v1/user/downgrade`)
 }

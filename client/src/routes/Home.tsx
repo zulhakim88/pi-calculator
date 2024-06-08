@@ -5,18 +5,18 @@ import CircumferenceCalculator from "../components/CircumferenceCalculator"
 import { useUserAuth } from "../context/AuthContext"
 
 const Home = (): JSX.Element => {
-	const { user } = useUserAuth()
+	const { displayName } = useUserAuth()
 
-	if (!user) {
+	if (!displayName) {
 		return <Navigate to="/signin" />
 	}
 
 	return (
 		<div className="min-h-screen bg-sky-100">
-			<Header />
+			<Header displayName={displayName} />
 			<div className="grid grid-cols-4 p-3">
 				<div className="col-span-full mb-3 rounded-md bg-white p-3 sm:col-span-4">
-					<h1 className="pb-2 text-2xl font-bold">Welcome {user.displayName}!</h1>
+					<h1 className="pb-2 text-2xl font-bold">Welcome {displayName}!</h1>
 					<div className="flex flex-col justify-between overflow-scroll rounded-md bg-gray-200 p-3">
 						<div>
 							<h2 className="mb-2 font-bold">Objective of this app</h2>
