@@ -1,33 +1,31 @@
 import React, { useState } from "react"
 import { getCircumference } from "../services/api"
 import { LoadingSpinnerBig } from "../assets/svg"
+import Input from "./Input"
 
 const CircumferenceCalculator = (): JSX.Element => {
-	const [radius, setRadius] = useState<number>(0)
+	const [radius, setRadius] = useState<string>("")
 	const [errorNoRadius, setErrorNoRadius] = useState<boolean>(false)
 	const [serverPiLength, setServerPiLength] = useState<number>(0)
 	const [circumference, setCircumference] = useState<string>("")
 	const [loading, setLoading] = useState<boolean>(false)
 
 	const handleRadiusInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.value === "") {
-			setRadius(0)
-		} else {
-			setErrorNoRadius(false)
-			setRadius(parseInt(e.target.value))
-		}
+		if (errorNoRadius && e.target.value) setErrorNoRadius(false)
+		setRadius(e.target.value)
 	}
 
 	const handleGetCircumference = async () => {
 		setLoading(true)
 		setServerPiLength(0)
 		setCircumference("")
-		if (radius === 0) {
+		const newRadius = radius ? parseInt(radius) : 0
+		if (newRadius === 0) {
 			setLoading(false)
 			setErrorNoRadius(true)
 		} else {
 			try {
-				const response = await getCircumference(radius)
+				const response = await getCircumference(newRadius)
 				setLoading(false)
 				setCircumference(response.circumference)
 				setServerPiLength(response.piLength)
@@ -52,19 +50,29 @@ const CircumferenceCalculator = (): JSX.Element => {
 					disabled
 					placeholder="Culculated circumference..."
 				></textarea>
-				<input
+				<Input
+					className={`peer w-full rounded-md px-4 pb-3 pt-3 ${errorNoRadius ? "border-2 border-red-600" : "border-2"}`}
+					label="Input Radius"
+					type="number"
+					name="radius"
+					value={radius.toString()}
+					onChange={handleRadiusInput}
+					min={0}
+					required
+				/>
+				{/* <input
 					onChange={handleRadiusInput}
 					className={`my-1 rounded-md p-3 ${errorNoRadius ? "border-2 border-red-600" : "border-2"}`}
 					type="number"
 					name="radius"
 					placeholder="Input Radius..."
 					required
-				/>
+				/> */}
 			</div>
 			{loading ? (
 				<button
 					disabled
-					className="mt-1 flex w-full cursor-not-allowed items-center justify-center rounded-md border-blue-400 bg-blue-400 p-4 text-white"
+					className="flex w-full cursor-not-allowed items-center justify-center rounded-md border-blue-400 bg-blue-400 p-4 text-white"
 				>
 					<LoadingSpinnerBig />
 					Calculating...
@@ -72,7 +80,7 @@ const CircumferenceCalculator = (): JSX.Element => {
 			) : (
 				<button
 					onClick={handleGetCircumference}
-					className="mt-1 w-full cursor-pointer rounded-md border-blue-400 bg-blue-400 p-4 text-white hover:bg-blue-600"
+					className="w-full cursor-pointer rounded-md border-blue-400 bg-blue-400 p-4 text-white hover:bg-blue-600"
 				>
 					Calculate!
 				</button>

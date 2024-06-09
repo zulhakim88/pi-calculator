@@ -1,16 +1,17 @@
 import { useState } from "react"
 import { getLatestPi, getLatestPiWithPrecission } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
+import Input from "./Input"
 
 const PiCalculator = (): JSX.Element => {
 	const [piValue, setPiValue] = useState<string>("3.142")
 	const [loadingFetchButton, setLoadingFetchButton] = useState<boolean>(false)
 	const [copied, setCopied] = useState<boolean>(false)
-	const [piDigit, setPiDigit] = useState<number>(0)
+	const [piDigit, setPiDigit] = useState<string>("")
 	const [serverPiDigit, setServerPiDigit] = useState<number>(0)
 
 	const handlePiPrecissionInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setPiDigit(parseInt(e.target.value))
+		setPiDigit(e.target.value)
 	}
 
 	const handleCopyClick = async () => {
@@ -27,10 +28,11 @@ const PiCalculator = (): JSX.Element => {
 
 	const handleFetchClick = async () => {
 		setLoadingFetchButton(true)
+		const digit = piDigit ? parseInt(piDigit) : 0
 
-		if (piDigit > 0) {
+		if (digit > 0) {
 			try {
-				const response = await getLatestPiWithPrecission(piDigit)
+				const response = await getLatestPiWithPrecission(digit)
 				setLoadingFetchButton(false)
 				setPiValue(response.pi)
 				setServerPiDigit(response.length)
@@ -59,20 +61,23 @@ const PiCalculator = (): JSX.Element => {
 					<code>{`Server PI length: ${serverPiDigit}`}</code>
 				</pre>
 			</div>
-			<p className="py-2">
+			<p className="pb-1 pt-2">
 				The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest
 				value. You can even specify the precision by specifying it manually. Free users only get up
 				to 15 decimal precision. Upgrade to get unlimited precision!
 			</p>
 
-			<div className="mb-3 flex flex-col items-center justify-between pt-1 sm:flex-row">
+			<div className="mb-1 flex flex-col items-center justify-between sm:flex-row">
 				<div className="mr-2 flex w-full flex-col items-center sm:w-[550px] lg:flex-row xl:mr-0">
-					<input
-						onChange={handlePiPrecissionInput}
-						className="w-full rounded-md border-2 p-3"
+					<Input
+						className={`peer w-full rounded-md border-2 px-4 pb-3 pt-3`}
+						label="Decimal Precision"
 						type="number"
+						onChange={handlePiPrecissionInput}
+						value={piDigit.toString()}
+						name="digit"
 						min={0}
-						placeholder="Manual Precision"
+						required
 					/>
 				</div>
 				<div className="mt-3 flex flex-row sm:mt-0">
