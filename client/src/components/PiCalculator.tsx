@@ -1,17 +1,13 @@
 import { useState } from "react"
-import { downgradeUser, getLatestPi, getLatestPiWithPrecission, upgradeUser } from "../services/api"
-import { useUserAuth } from "../context/AuthContext"
+import { getLatestPi, getLatestPiWithPrecission } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
 
 const PiCalculator = (): JSX.Element => {
 	const [piValue, setPiValue] = useState<string>("3.142")
 	const [loadingFetchButton, setLoadingFetchButton] = useState<boolean>(false)
-	const [loadingUpgradeButton, setLoadingUpgradeButton] = useState<boolean>(false)
 	const [copied, setCopied] = useState<boolean>(false)
 	const [piDigit, setPiDigit] = useState<number>(0)
 	const [serverPiDigit, setServerPiDigit] = useState<number>(0)
-
-	const { isPaidUser, setIsPaidUser } = useUserAuth()
 
 	const handlePiPrecissionInput = (e: React.ChangeEvent<HTMLInputElement>) => {
 		setPiDigit(parseInt(e.target.value))
@@ -26,24 +22,6 @@ const PiCalculator = (): JSX.Element => {
 			}, 1000)
 		} catch (e: any) {
 			console.log(e)
-		}
-	}
-
-	const handleChangeUserTierClick = async () => {
-		setLoadingUpgradeButton(true)
-
-		try {
-			let response
-			if (isPaidUser) {
-				response = await downgradeUser()
-			} else {
-				response = await upgradeUser()
-			}
-			setLoadingUpgradeButton(false)
-			setIsPaidUser(response.isPaidUser)
-		} catch (e: any) {
-			console.log(e)
-			setLoadingUpgradeButton(false)
 		}
 	}
 
@@ -80,21 +58,6 @@ const PiCalculator = (): JSX.Element => {
 				<pre className="mx-0 my-3 rounded-md bg-slate-200 px-2 py-1 text-sm sm:mx-3 sm:my-0">
 					<code>{`Server PI length: ${serverPiDigit}`}</code>
 				</pre>
-				{loadingUpgradeButton ? (
-					<button
-						disabled
-						className="flex h-[30px] w-[150px] items-center justify-center rounded-md bg-green-400 p-3 hover:bg-green-500"
-					>
-						<LoadingSpinnerSmall />
-					</button>
-				) : (
-					<button
-						onClick={handleChangeUserTierClick}
-						className="flex h-[30px] w-[150px] cursor-pointer items-center justify-center rounded-md bg-green-400 p-3 text-white hover:bg-green-500"
-					>
-						{isPaidUser ? "Downgrade User" : "Upgrade User"}
-					</button>
-				)}
 			</div>
 			<p className="py-2">
 				The PI digit is constantly being generated in the backend. Press "Fetch" to get the latest
