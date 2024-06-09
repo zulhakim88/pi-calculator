@@ -33,7 +33,11 @@ const Home = (): JSX.Element => {
 							<ol className="list-disc pl-5 text-sm">
 								<li>
 									No we don't. Refer here:{" "}
-									<Link className="text-blue-500 underline" to="" target="_blank">
+									<Link
+										className="text-blue-500 underline"
+										to="https://www.jpl.nasa.gov/edu/news/2016/3/16/how-many-decimals-of-pi-do-we-really-need/"
+										target="_blank"
+									>
 										How Many Decimals of Pi Do We Really Need?
 									</Link>{" "}
 									(We don't actually need more than 15 decimals)
