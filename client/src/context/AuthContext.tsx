@@ -8,7 +8,7 @@ import {
 	User as FirebaseUser,
 	AuthErrorCodes,
 } from "firebase/auth"
-import { auth } from "../config/firebase"
+import { auth } from "../configs/firebase"
 import { ChildrenElement, RegisterUserAttribute, LoginUserAttribute } from "../lib/types"
 import { LoadingSpinnerPage } from "../assets/svg"
 import { router } from "../main"
