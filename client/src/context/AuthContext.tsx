@@ -9,29 +9,43 @@ import {
 	AuthErrorCodes,
 } from "firebase/auth"
 import { auth } from "../configs/firebase"
-import { ChildrenElement, RegisterUserAttribute, LoginUserAttribute } from "../lib/types"
+import {
+	ChildrenElementType,
+	RegisterUserAttributeType,
+	LoginUserAttributeType,
+} from "../lib/types"
 import { LoadingSpinnerPage } from "../assets/svg"
 import { router } from "../main"
 
-interface AuthStateContext {
+type AuthStateContext = {
 	user: FirebaseUser | null
 	displayName: string
 	isPaidUser: boolean
 	setIsPaidUser: React.Dispatch<React.SetStateAction<boolean>>
-	registerUser: ({ firstName, lastName, email, password }: RegisterUserAttribute) => Promise<void>
-	login: ({ email, password }: LoginUserAttribute) => Promise<void>
+	registerUser: ({
+		firstName,
+		lastName,
+		email,
+		password,
+	}: RegisterUserAttributeType) => Promise<void>
+	login: ({ email, password }: LoginUserAttributeType) => Promise<void>
 	logout: () => Promise<void>
 }
 
 const UserContext = createContext({} as AuthStateContext)
 
-export const AuthContextProvider = ({ children }: ChildrenElement) => {
+export const AuthContextProvider = ({ children }: ChildrenElementType) => {
 	const [user, setUser] = useState<FirebaseUser | null>(null)
 	const [displayName, setDisplayName] = useState<string>("")
 	const [loading, setLoading] = useState<boolean>(true)
 	const [isPaidUser, setIsPaidUser] = useState<boolean>(false)
 
-	const registerUser = async ({ firstName, lastName, email, password }: RegisterUserAttribute) => {
+	const registerUser = async ({
+		firstName,
+		lastName,
+		email,
+		password,
+	}: RegisterUserAttributeType) => {
 		try {
 			setDisplayName(`${firstName} ${lastName}`)
 			const createdUser = await createUserWithEmailAndPassword(auth, email, password)
@@ -49,7 +63,7 @@ export const AuthContextProvider = ({ children }: ChildrenElement) => {
 		}
 	}
 
-	const login = async ({ email, password }: LoginUserAttribute) => {
+	const login = async ({ email, password }: LoginUserAttributeType) => {
 		try {
 			await signInWithEmailAndPassword(auth, email, password)
 		} catch (error: any) {

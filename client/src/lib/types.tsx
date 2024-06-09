@@ -1,8 +1,8 @@
-export interface ChildrenElement {
+export type ChildrenElementType = {
 	children: JSX.Element | JSX.Element[]
 }
 
-export interface RegisterUserAttribute {
+export type RegisterUserAttributeType = {
 	firstName: string
 	lastName: string
 	email: string
@@ -10,21 +10,21 @@ export interface RegisterUserAttribute {
 	confirmPassword: string
 }
 
-export interface LoginUserAttribute {
+export type LoginUserAttributeType = {
 	email: string
 	password: string
 }
 
-export interface PiDataType {
+export type PiDataType = {
 	length: number
 	pi: string
 }
 
-export interface CircumferenceDataType {
+export type CircumferenceDataType = {
 	circumference: string
 	piLength: number
 }
 
-export interface UserPaidStatusType {
+export type UserPaidStatusType = {
 	isPaidUser: boolean
 }

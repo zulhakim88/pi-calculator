@@ -1,12 +1,12 @@
 import React, { useState } from "react"
 import { Link, Navigate } from "react-router-dom"
 import { useUserAuth } from "../context/AuthContext"
-import { RegisterUserAttribute } from "../lib/types"
+import { RegisterUserAttributeType } from "../lib/types"
 import { LoadingSpinnerBig } from "../assets/svg"
 import Input from "../components/Input"
 
 const SignUp = (): JSX.Element => {
-	const [registerForm, setRegisterForm] = useState<RegisterUserAttribute>({
+	const [registerForm, setRegisterForm] = useState<RegisterUserAttributeType>({
 		firstName: "",
 		lastName: "",
 		email: "",

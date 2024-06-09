@@ -1,7 +1,7 @@
 import { FaRocket } from "react-icons/fa"
 import DropDownMenu from "./DropDownMenu"
 
-interface HeaderPropType {
+type HeaderPropType = {
 	displayName: string
 }
 
