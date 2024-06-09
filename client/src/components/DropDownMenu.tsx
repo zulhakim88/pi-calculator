@@ -62,7 +62,7 @@ export default function DropDownMenu({ displayName }: Props): JSX.Element {
 				</span>
 			</button>
 			{isOpen && (
-				<div className="absolute right-0 top-[70px] flex w-[200px] flex-col justify-center rounded-md border border-gray-200 bg-white p-4 shadow-md">
+				<div className="absolute right-2 top-[70px] flex w-[200px] flex-col justify-center rounded-md border border-gray-300 bg-white p-4 shadow-md">
 					{loadingUpgradeButton ? (
 						<button disabled className="mr-2 flex h-[30px] w-full items-center justify-center p-3">
 							<LoadingSpinnerSmall />
