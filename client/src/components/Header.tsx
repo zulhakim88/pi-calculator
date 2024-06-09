@@ -12,7 +12,7 @@ const Header = ({ displayName }: HeaderPropType): JSX.Element => {
 				<div className="rounded-md bg-purple-700 p-3 text-white">
 					<FaRocket className="h-7 w-7" />
 				</div>
-				<div className="mx-4 text-lg font-bold">PI Calculator</div>
+				<div className="mx-4 text-lg font-bold">PI & Circumference Calculator</div>
 			</div>
 			<DropDownMenu displayName={displayName} />
 		</div>
