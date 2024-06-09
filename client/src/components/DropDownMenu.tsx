@@ -72,10 +72,10 @@ export default function DropDownMenu({ displayName }: Props): JSX.Element {
 							onClick={handleChangeUserTierClick}
 							className="mr-2 flex h-[30px] w-full cursor-pointer items-center justify-center rounded-md bg-purple-400 p-3 font-mono text-sm text-white hover:bg-purple-500"
 						>
-							{isPaidUser ? "Downgrade" : "Upgrade"}
+							{isPaidUser ? "Downgrade Tier" : "Upgrade Tier"}
 						</button>
 					)}
-					<hr className="my-4 h-px border bg-gray-200 dark:bg-gray-700" />
+					<hr className="my-4 h-px border bg-gray-100" />
 					<button onClick={handleLogout} className="mx-2 cursor-pointer text-center text-blue-400">
 						Logout
 					</button>
