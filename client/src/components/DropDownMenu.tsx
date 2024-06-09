@@ -6,11 +6,11 @@ import { useUserAuth } from "../context/AuthContext"
 import { downgradeUser, upgradeUser } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
 
-interface Props {
+type DropDownMenuPropType = {
 	displayName: string
 }
 
-export default function DropDownMenu({ displayName }: Props): JSX.Element {
+const DropDownMenu = ({ displayName }: DropDownMenuPropType): JSX.Element => {
 	const { isPaidUser, setIsPaidUser, logout } = useUserAuth()
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [loadingUpgradeButton, setLoadingUpgradeButton] = useState<boolean>(false)
@@ -84,3 +84,5 @@ export default function DropDownMenu({ displayName }: Props): JSX.Element {
 		</div>
 	)
 }
+
+export default DropDownMenu
