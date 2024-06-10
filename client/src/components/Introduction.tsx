@@ -11,7 +11,17 @@ const Introduction = () => {
 				<div>
 					<h2 className="mb-2 font-bold">Objective of this app</h2>
 					<ol className="list-disc pl-5 text-sm">
-						<li>Calculate PI to the Nth decimal point precision.</li>
+						<li>
+							Calculate PI to the Nth decimal point precision. You can compare the PI generated{" "}
+							<Link
+								to="https://www.piday.org/million/"
+								className="text-blue-500 underline"
+								target="_blank"
+							>
+								here
+							</Link>
+							.
+						</li>
 						<li>
 							Calculate the circumferece for any given Radius with whatever PI value being generated
 							in the Backend.
