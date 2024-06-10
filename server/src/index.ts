@@ -18,8 +18,10 @@ const corsOptions: cors.CorsOptions = {
 };
 app.use(cors(corsOptions));
 
-// Routes
+// Validate token middleware and set user customClaims for API limit.
 app.use("/api", validateRequestToken);
+
+// Routes
 app.use("/api/v1", getSystemCounter, piRouter);
 app.use("/api/v1", getSystemCounter, circumferenceRouter);
 app.use("/api/v1", userRouter);
