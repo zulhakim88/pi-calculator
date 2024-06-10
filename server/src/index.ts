@@ -6,21 +6,19 @@ import circumferenceRouter from "./v1/routes/circumference";
 import { validateRequestToken } from "./middleware/auth";
 import { getSystemCounter, setSystemCounter } from "./middleware/counter";
 
-let COUNTER = 0;
 const MAX_PRECISION_FREE_USER = 15;
+const PORT = 4000;
+const whitelist = ["http://localhost:5173"];
 
 const app = express();
 
-const whitelist = ["http://localhost:5173"];
-
+// CORS config
 const corsOptions: cors.CorsOptions = {
   origin: whitelist,
 };
-
 app.use(cors(corsOptions));
 
-const PORT = 4000;
-
+// Routes
 app.use("/api", validateRequestToken);
 app.use("/api/v1", getSystemCounter, piRouter);
 app.use("/api/v1", getSystemCounter, circumferenceRouter);
