@@ -11,7 +11,7 @@ router.get("/user/upgrade", async (req: Request, res: Response) => {
   try {
     const decodedtoken = await admin.auth().verifyIdToken(token);
     const user = await admin.auth().getUser(decodedtoken.user_id);
-    return await checkUpgradeUserValidity(res, user);
+    return await upgradeUser(res, user);
   } catch (e: any) {
     return res.status(401).send({ error: "Unauthorized access" });
   }
@@ -23,13 +23,13 @@ router.get("/user/downgrade", async (req: Request, res: Response) => {
   try {
     const decodedtoken = await admin.auth().verifyIdToken(token);
     const user = await admin.auth().getUser(decodedtoken.user_id);
-    return await checkDowngradeUserValidity(res, user);
+    return await downgradeUser(res, user);
   } catch (e: any) {
     return res.status(401).send({ error: "Unauthorized access" });
   }
 });
 
-const checkUpgradeUserValidity = async (res: Response, user: UserRecord) => {
+const upgradeUser = async (res: Response, user: UserRecord) => {
   const paidUser = res.locals.paidUser;
 
   if (paidUser) {
@@ -49,7 +49,7 @@ const checkUpgradeUserValidity = async (res: Response, user: UserRecord) => {
   }
 };
 
-const checkDowngradeUserValidity = async (res: Response, user: UserRecord) => {
+const downgradeUser = async (res: Response, user: UserRecord) => {
   const paidUser = res.locals.paidUser;
 
   if (!paidUser) {
