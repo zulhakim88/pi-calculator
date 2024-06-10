@@ -2,6 +2,7 @@ import { useState } from "react"
 import { getLatestPi, getLatestPiWithPrecission } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
 import Input from "./Input"
+import { isNumber, numberFormatterWithCommas, stripCommas } from "../util"
 
 const PiCalculator = (): JSX.Element => {
 	const [piValue, setPiValue] = useState<string>("3.142")
@@ -11,7 +12,8 @@ const PiCalculator = (): JSX.Element => {
 	const [serverPiDigit, setServerPiDigit] = useState<number>(0)
 
 	const handlePiPrecissionInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setPiDigit(e.target.value)
+		if (isNumber(e.target.value) || e.target.value === "") setPiDigit(e.target.value)
+		return
 	}
 
 	// const handleCopyClick = async () => {
@@ -30,7 +32,8 @@ const PiCalculator = (): JSX.Element => {
 		setLoadingFetchButton(true)
 		setServerPiDigit(0)
 		setPiValue("")
-		const digit = piDigit ? parseInt(piDigit) : 0
+		const digitInput = parseInt(stripCommas(piDigit))
+		const digit = digitInput ? digitInput : 0
 
 		if (digit > 0) {
 			try {
@@ -65,7 +68,7 @@ const PiCalculator = (): JSX.Element => {
 					up to 15 decimal precision. Upgrade to get unlimited precision!
 				</p>
 				<pre className="left-0 mx-0 my-2 flex w-full justify-center rounded-md bg-slate-200 px-2 py-1 text-sm sm:absolute sm:left-48 sm:mx-3 sm:my-0 sm:w-auto sm:justify-normal">
-					<code>{`Server PI length: ${serverPiDigit}`}</code>
+					<code>{`Server PI length: ${numberFormatterWithCommas(serverPiDigit.toString())}`}</code>
 				</pre>
 			</div>
 
@@ -74,11 +77,10 @@ const PiCalculator = (): JSX.Element => {
 					<Input
 						className={`peer w-full rounded-md border-2 px-4 pb-3 pt-3 sm:w-[400px]`}
 						label="Decimal Precision"
-						type="number"
+						type="text"
 						onChange={handlePiPrecissionInput}
-						value={piDigit.toString()}
+						value={numberFormatterWithCommas(piDigit)}
 						name="digit"
-						min={0}
 						required
 					/>
 				</div>
