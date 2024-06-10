@@ -28,27 +28,29 @@ const PiCalculator = (): JSX.Element => {
 
 	const handleFetchClick = async () => {
 		setLoadingFetchButton(true)
+		setServerPiDigit(0)
+		setPiValue("")
 		const digit = piDigit ? parseInt(piDigit) : 0
 
 		if (digit > 0) {
 			try {
 				const response = await getLatestPiWithPrecission(digit)
-				setLoadingFetchButton(false)
 				setPiValue(response.pi)
 				setServerPiDigit(response.length)
 			} catch (e: any) {
-				setLoadingFetchButton(false)
 				console.log(e)
+			} finally {
+				setLoadingFetchButton(false)
 			}
 		} else {
 			try {
 				const response = await getLatestPi()
-				setLoadingFetchButton(false)
 				setPiValue(response.pi)
 				setServerPiDigit(response.length)
 			} catch (e: any) {
-				setLoadingFetchButton(false)
 				console.log(e)
+			} finally {
+				setLoadingFetchButton(false)
 			}
 		}
 	}

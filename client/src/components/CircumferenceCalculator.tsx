@@ -26,12 +26,12 @@ const CircumferenceCalculator = (): JSX.Element => {
 		} else {
 			try {
 				const response = await getCircumference(newRadius)
-				setLoading(false)
 				setCircumference(response.circumference)
 				setServerPiLength(response.piLength)
 			} catch (e: any) {
-				setLoading(false)
 				console.log(e)
+			} finally {
+				setLoading(false)
 			}
 		}
 	}

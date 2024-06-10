@@ -6,11 +6,11 @@ import { useUserAuth } from "../context/AuthContext"
 import { downgradeUser, upgradeUser } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
 
-type DropDownMenuPropType = {
+type AvatarWithDropDownMenuPropType = {
 	displayName: string
 }
 
-const DropDownMenu = ({ displayName }: DropDownMenuPropType): JSX.Element => {
+const AvatarWithDropDownMenu = ({ displayName }: AvatarWithDropDownMenuPropType): JSX.Element => {
 	const { isPaidUser, setIsPaidUser, logout } = useUserAuth()
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [loadingUpgradeButton, setLoadingUpgradeButton] = useState<boolean>(false)
@@ -30,10 +30,10 @@ const DropDownMenu = ({ displayName }: DropDownMenuPropType): JSX.Element => {
 			} else {
 				response = await upgradeUser()
 			}
-			setLoadingUpgradeButton(false)
 			setIsPaidUser(response.isPaidUser)
 		} catch (e: any) {
 			console.log(e)
+		} finally {
 			setLoadingUpgradeButton(false)
 		}
 	}
@@ -85,4 +85,4 @@ const DropDownMenu = ({ displayName }: DropDownMenuPropType): JSX.Element => {
 	)
 }
 
-export default DropDownMenu
+export default AvatarWithDropDownMenu

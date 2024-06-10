@@ -1,5 +1,5 @@
 import { FaRocket } from "react-icons/fa"
-import DropDownMenu from "./DropDownMenu"
+import AvatarWithDropDownMenu from "./AvatarWithDropDownMenu"
 import { useUserAuth } from "../context/AuthContext"
 
 const Header = (): JSX.Element => {
@@ -12,7 +12,7 @@ const Header = (): JSX.Element => {
 				</div>
 				<div className="mx-4 text-lg font-bold">PI & Circumference Calculator</div>
 			</div>
-			<DropDownMenu displayName={displayName} />
+			<AvatarWithDropDownMenu displayName={displayName} />
 		</div>
 	)
 }
