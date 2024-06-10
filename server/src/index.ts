@@ -6,7 +6,6 @@ import circumferenceRouter from "./v1/routes/circumference";
 import { validateRequestToken } from "./middleware/auth";
 import { getSystemCounter, setSystemCounter } from "./middleware/counter";
 
-const MAX_PRECISION_FREE_USER = 15;
 const PORT = 4000;
 const whitelist = ["http://localhost:5173"];
 
