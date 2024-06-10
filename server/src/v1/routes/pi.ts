@@ -11,19 +11,18 @@ router.get("/pi", (req: Request, res: Response) => {
 });
 
 router.get("/pi/:digit", (req: Request, res: Response) => {
-  let digit = parseInt(req.params.digit);
+  const digit = parseInt(req.params.digit);
+  const counter = parseInt(res.locals.counter);
   const isPaidUser = res.locals.paidUser;
-  if (
-    isPaidUser ||
-    (!isPaidUser &&
-      parseInt(req.params.digit) <= res.locals.MAX_PRECISION_FREE_USER)
-  ) {
-    digit = parseInt(req.params.digit);
+  let pi = "";
+
+  if (digit <= counter) {
+    pi = piCalculator([digit]);
   } else {
-    digit = res.locals.MAX_PRECISION_FREE_USER;
+    pi = piCalculator([isPaidUser ? digit : counter]);
   }
-  const pi = piCalculator([digit]);
-  res.status(200).send({ pi, length: pi.length - 2 });
+
+  return res.status(200).send({ pi, length: pi.length - 2 });
 });
 
 export default router;

@@ -26,7 +26,6 @@ const getCounter = (req: Request, res: Response, next: NextFunction) => {
   res.locals.counter = isPaidUser
     ? COUNTER.toString()
     : MAX_PRECISION_FREE_USER;
-  res.locals.MAX_PRECISION_FREE_USER = MAX_PRECISION_FREE_USER;
   next();
 };
 
