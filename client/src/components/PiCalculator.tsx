@@ -31,11 +31,10 @@ const PiCalculator = (): JSX.Element => {
 		setLoadingFetchButton(true)
 		setServerPiDigit(0)
 		setPiValue("")
-		const digit = parseInt(piDigit) ? parseInt(piDigit) : 0
 
-		if (digit > 0) {
+		if (piDigit) {
 			try {
-				const response = await getLatestPiWithPrecission(digit)
+				const response = await getLatestPiWithPrecission(parseInt(piDigit))
 				setPiValue(response.pi)
 				setServerPiDigit(response.length)
 			} catch (e: any) {
