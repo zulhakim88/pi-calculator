@@ -31,6 +31,7 @@ const SignIn = (): JSX.Element => {
 		try {
 			await login(loginForm)
 		} catch (error: any) {
+			setLoading(false)
 			setError(error.message)
 		}
 	}

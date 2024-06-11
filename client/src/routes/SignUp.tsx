@@ -48,6 +48,7 @@ const SignUp = (): JSX.Element => {
 		try {
 			await registerUser(registerForm)
 		} catch (error: any) {
+			setLoading(false)
 			setError(error.message)
 		}
 	}
