@@ -15,7 +15,6 @@ import {
 	LoginUserAttributeType,
 } from "../lib/types"
 import { LoadingSpinnerPage } from "../assets/svg"
-import { router } from "../main"
 
 type AuthStateContext = {
 	user: FirebaseUser | null
@@ -87,7 +86,6 @@ export const AuthContextProvider = ({ children }: ChildrenElementType) => {
 		try {
 			localStorage.clear()
 			await signOut(auth)
-			// await router.navigate("/")
 		} catch (error) {
 			throw error
 		}
@@ -101,8 +99,9 @@ export const AuthContextProvider = ({ children }: ChildrenElementType) => {
 				return
 			}
 			try {
-				localStorage.clear()
 				const tokenDetails = await currentUser.getIdTokenResult(true)
+				// Reset access token in local storage
+				localStorage.clear()
 				localStorage.setItem("token", `Bearer ${tokenDetails.token}`)
 				setIsPaidUser(tokenDetails.claims.paiduser as boolean)
 				setUser(currentUser)
@@ -113,7 +112,6 @@ export const AuthContextProvider = ({ children }: ChildrenElementType) => {
 				console.log(e)
 			} finally {
 				setLoading(false)
-				await router.navigate("/")
 			}
 		})
 
