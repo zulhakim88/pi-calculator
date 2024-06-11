@@ -2,7 +2,7 @@ import { useState } from "react"
 import { getLatestPi, getLatestPiWithPrecission } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
 import Input from "./Input"
-import { isNumber, numberFormatterWithCommas, stripCommas } from "../util"
+import { numberFormatterWithCommas } from "../util"
 
 const PiCalculator = (): JSX.Element => {
 	const [piValue, setPiValue] = useState<string>("3.142")
@@ -12,8 +12,7 @@ const PiCalculator = (): JSX.Element => {
 	const [serverPiDigit, setServerPiDigit] = useState<number>(0)
 
 	const handlePiPrecissionInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (isNumber(e.target.value) || e.target.value === "") setPiDigit(e.target.value)
-		return
+		setPiDigit(e.target.value)
 	}
 
 	// const handleCopyClick = async () => {
@@ -32,8 +31,7 @@ const PiCalculator = (): JSX.Element => {
 		setLoadingFetchButton(true)
 		setServerPiDigit(0)
 		setPiValue("")
-		const digitInput = parseInt(stripCommas(piDigit))
-		const digit = digitInput ? digitInput : 0
+		const digit = parseInt(piDigit) ? parseInt(piDigit) : 0
 
 		if (digit > 0) {
 			try {
@@ -77,10 +75,11 @@ const PiCalculator = (): JSX.Element => {
 					<Input
 						className={`peer w-full rounded-md border-2 px-4 pb-3 pt-3 sm:w-[400px]`}
 						label="Decimal Precision"
-						type="text"
+						type="number"
 						onChange={handlePiPrecissionInput}
-						value={numberFormatterWithCommas(piDigit)}
+						value={piDigit}
 						name="digit"
+						min={0}
 						required
 					/>
 				</div>
