@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useOutsideClick } from "../util/useClickOutside"
 import { nameInitial } from "../util"
-import { useNavigate } from "react-router-dom"
 import { useUserAuth } from "../context/AuthContext"
 import { downgradeUser, upgradeUser } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
@@ -14,7 +13,6 @@ const AvatarWithDropDownMenu = ({ displayName }: AvatarWithDropDownMenuPropType)
 	const { isPaidUser, setIsPaidUser, logout } = useUserAuth()
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [loadingUpgradeButton, setLoadingUpgradeButton] = useState<boolean>(false)
-	const navigate = useNavigate()
 
 	const ref = useOutsideClick(() => {
 		setIsOpen(false)
@@ -45,7 +43,6 @@ const AvatarWithDropDownMenu = ({ displayName }: AvatarWithDropDownMenuPropType)
 	const handleLogout = async () => {
 		try {
 			await logout()
-			navigate("/signin")
 		} catch (e: any) {
 			console.log(e.code)
 		}

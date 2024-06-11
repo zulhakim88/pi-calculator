@@ -86,7 +86,8 @@ export const AuthContextProvider = ({ children }: ChildrenElementType) => {
 	const logout = async () => {
 		try {
 			localStorage.clear()
-			return await signOut(auth)
+			await signOut(auth)
+			// await router.navigate("/")
 		} catch (error) {
 			throw error
 		}
@@ -94,17 +95,28 @@ export const AuthContextProvider = ({ children }: ChildrenElementType) => {
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-			localStorage.clear()
-			const tokenDetails = await currentUser?.getIdTokenResult(true)
-			localStorage.setItem("token", tokenDetails?.token ? `Bearer ${tokenDetails?.token}` : "")
-			setIsPaidUser(tokenDetails?.claims.paiduser as boolean)
-			setLoading(false)
-			setUser(currentUser)
-			if (currentUser && currentUser.displayName) {
-				setDisplayName(currentUser.displayName)
+			if (!currentUser) {
+				setLoading(false)
+				setUser(null)
+				return
 			}
-			router.navigate("/")
+			try {
+				localStorage.clear()
+				const tokenDetails = await currentUser.getIdTokenResult(true)
+				localStorage.setItem("token", `Bearer ${tokenDetails.token}`)
+				setIsPaidUser(tokenDetails.claims.paiduser as boolean)
+				setUser(currentUser)
+				if (currentUser.displayName) {
+					setDisplayName(currentUser.displayName)
+				}
+			} catch (e: unknown) {
+				console.log(e)
+			} finally {
+				setLoading(false)
+				await router.navigate("/")
+			}
 		})
+
 		return () => {
 			unsubscribe()
 		}
