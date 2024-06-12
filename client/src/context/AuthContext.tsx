@@ -9,11 +9,7 @@ import {
 	AuthErrorCodes,
 } from "firebase/auth"
 import { auth } from "../configs/firebase"
-import {
-	ChildrenElementType,
-	RegisterUserAttributeType,
-	LoginUserAttributeType,
-} from "../types/type"
+import { ChildrenElementType, RegisterUserAttributeType, LoginUserAttributeType } from "../types"
 import { LoadingSpinnerPage } from "../assets/svg"
 
 type AuthStateContext = {
