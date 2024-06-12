@@ -17,6 +17,7 @@ const AvatarWithDropDownMenu = ({ displayName }: AvatarWithDropDownMenuPropType)
 	const [loadingUpgradeButton, setLoadingUpgradeButton] = useState<boolean>(false)
 
 	const ref = useOutsideClick(() => {
+		if (!isOpen) return
 		setIsOpen(false)
 	})
 
