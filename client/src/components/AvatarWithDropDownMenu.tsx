@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { useOutsideClick } from "../util/useClickOutside"
+import { useOutsideClick } from "./hooks/useClickOutside"
 import { nameInitial } from "../util"
 import { useUserAuth } from "../context/AuthContext"
 import { downgradeUser, upgradeUser } from "../services/api"
