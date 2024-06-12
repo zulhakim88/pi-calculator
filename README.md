@@ -5,7 +5,7 @@ A simple PI and Circumference calculator app.
 ## Features
 
 - Create and login with a User (Managed by Firebase).
-- Upgrade a user from a free tier.
+- Upgrade a user from a free tier to a paid tier. User tier will affect the API calls.
 - Calculate PI to the Nth decimal point precision.
 - Use that PI value to calculate the circumfrence of any given Radius.
 
