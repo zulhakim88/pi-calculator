@@ -9,8 +9,22 @@ service.interceptors.request.use((request) => {
 	return request
 })
 
-service.interceptors.response.use((response) => {
-	return response.data
-})
+service.interceptors.response.use(
+	(response) => {
+		return response.data
+	},
+	(error) => {
+		if (error.code === "ERR_NETWORK") {
+			alert("Server is down!")
+			throw new Error(`Error code: ${error.code} with message: ${error.message}`)
+		}
+		if (error.response.data.error) {
+			alert(error.response.data.error)
+			throw new Error(error.response.data.error)
+		}
+
+		throw new Error(`Error code: ${error.code} with message: ${error.message}`)
+	}
+)
 
 export default service
