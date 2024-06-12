@@ -45,7 +45,7 @@ You will need this to run the project:
 - vite (to build the frontend)
 - tailwind css as the design framework
 - firebase app credentials on the client side for authentication processes (register, login, logout users)
-- firebase-admin credentials on the server side for user management prciesses (add custom claims, update user information)
+- firebase-admin credentials on the server side for user management functions (add custom claims, update user information)
 
 ### Start the server
 
