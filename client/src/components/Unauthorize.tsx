@@ -4,7 +4,7 @@ const Unauthorize = (): JSX.Element => {
 	const navigate = useNavigate()
 	return (
 		<div className="flex h-screen items-center bg-sky-100">
-			<div className="mx-auto flex w-[500px] flex-col items-center justify-center rounded-lg bg-white p-5 shadow-md">
+			<div className="mx-auto flex w-[400px] flex-col items-center justify-center rounded-lg bg-white p-5 shadow-md">
 				<div className="font-mono text-2xl font-bold">Unauthorized Access</div>
 				<p className="my-3">Please login to access this page.</p>
 				<button
