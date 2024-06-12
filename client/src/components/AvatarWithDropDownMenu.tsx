@@ -70,7 +70,7 @@ const AvatarWithDropDownMenu = ({ displayName }: AvatarWithDropDownMenuPropType)
 					) : (
 						<button
 							onClick={handleChangeUserTierClick}
-							className="mr-2 flex h-[30px] w-full cursor-pointer items-center justify-center rounded-md bg-amber-400 p-3 font-mono text-sm text-gray-50 hover:bg-amber-500"
+							className={`mr-2 flex h-[30px] w-full cursor-pointer items-center justify-center rounded-md p-3 font-mono text-sm text-gray-50 ${isPaidUser ? "bg-red-400 hover:bg-red-600" : "bg-amber-400 hover:bg-amber-500"}`}
 						>
 							{isPaidUser ? "Downgrade Tier" : "Upgrade Tier"}
 						</button>
