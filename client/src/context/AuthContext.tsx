@@ -13,7 +13,7 @@ import {
 	ChildrenElementType,
 	RegisterUserAttributeType,
 	LoginUserAttributeType,
-} from "../types/types"
+} from "../types/type"
 import { LoadingSpinnerPage } from "../assets/svg"
 
 type AuthStateContext = {

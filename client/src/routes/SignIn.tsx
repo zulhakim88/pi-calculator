@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import { Link, Navigate } from "react-router-dom"
-import { LoginUserAttributeType } from "../types/types"
+import { LoginUserAttributeType } from "../types/type"
 import { useUserAuth } from "../context/AuthContext"
 import { LoadingSpinnerBig } from "../assets/svg"
 import Input from "../components/Input"
