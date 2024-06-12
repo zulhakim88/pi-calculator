@@ -44,7 +44,7 @@ const SignIn = (): JSX.Element => {
 		<div className="flex h-screen items-center bg-sky-100">
 			<div className="mx-auto flex w-[500px] flex-col rounded-lg bg-white p-5 shadow-md">
 				<div className="flex flex-col">
-					<h1 className="py-2 text-left text-2xl font-bold">Sign In!</h1>
+					<h1 className="py-2 text-left font-mono text-2xl font-bold">Sign In!</h1>
 					<div className="flex justify-start space-x-1 py-2">
 						<p>Don't have an account?</p>
 						<Link to="/signup" className="text-blue-500 underline">

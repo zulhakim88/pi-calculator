@@ -4,12 +4,14 @@ import { nameInitial } from "../util"
 import { useUserAuth } from "../context/AuthContext"
 import { downgradeUser, upgradeUser } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
+import { useNavigate } from "react-router-dom"
 
 type AvatarWithDropDownMenuPropType = {
 	displayName: string
 }
 
 const AvatarWithDropDownMenu = ({ displayName }: AvatarWithDropDownMenuPropType): JSX.Element => {
+	const navigate = useNavigate()
 	const { isPaidUser, setIsPaidUser, logout } = useUserAuth()
 	const [isOpen, setIsOpen] = useState<boolean>(false)
 	const [loadingUpgradeButton, setLoadingUpgradeButton] = useState<boolean>(false)
@@ -43,6 +45,7 @@ const AvatarWithDropDownMenu = ({ displayName }: AvatarWithDropDownMenuPropType)
 	const handleLogout = async () => {
 		try {
 			await logout()
+			navigate("/signin")
 		} catch (e: any) {
 			console.log(e.code)
 		}

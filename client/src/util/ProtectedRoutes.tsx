@@ -1,12 +1,12 @@
 import { useUserAuth } from "../context/AuthContext"
-import { Navigate } from "react-router-dom"
 import { ChildrenElementType } from "../lib/types"
+import Unauthorize from "../components/Unauthorize"
 
-const ProtectedRoutes = ({ children }: ChildrenElementType): JSX.Element | null => {
+const ProtectedRoutes = ({ children }: ChildrenElementType): JSX.Element => {
 	const { user } = useUserAuth()
 
 	if (!user) {
-		return <Navigate to="/signin" />
+		return <Unauthorize />
 	}
 	return <>{children}</>
 }
