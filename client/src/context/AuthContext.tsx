@@ -75,9 +75,6 @@ export const AuthContextProvider = ({ children }: ChildrenElementType) => {
 			if (error.code === AuthErrorCodes.NETWORK_REQUEST_FAILED) {
 				throw new Error("Service is temporarily unavailable!")
 			}
-			if (error.code === AuthErrorCodes.WEAK_PASSWORD) {
-				throw new Error("Password should atleast be 6 characters long!")
-			}
 			throw new Error(error.message)
 		}
 	}
