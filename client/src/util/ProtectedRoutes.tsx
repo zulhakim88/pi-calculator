@@ -1,5 +1,5 @@
 import { useUserAuth } from "../context/AuthContext"
-import { ChildrenElementType } from "../lib/types"
+import { ChildrenElementType } from "../types/types"
 import Unauthorize from "../components/Unauthorize"
 
 const ProtectedRoutes = ({ children }: ChildrenElementType): JSX.Element => {

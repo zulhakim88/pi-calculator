@@ -1,4 +1,4 @@
-import { CircumferenceDataType, PiDataType, UserPaidStatusType } from "../lib/types"
+import { CircumferenceDataType, PiDataType, UserPaidStatusType } from "../types/types"
 import service from "../configs/axios"
 
 export const getLatestPi = () => {
