@@ -65,7 +65,7 @@ const PiCalculator = (): JSX.Element => {
 					up to 15 decimal precision. Upgrade to get unlimited precision!
 				</p>
 				<pre className="left-0 mx-0 my-2 flex w-full justify-center rounded-md bg-slate-200 px-2 py-1 text-sm sm:absolute sm:left-48 sm:mx-3 sm:my-0 sm:w-auto sm:justify-normal">
-					<code>{`Server PI length: ${numberFormatterWithCommas(serverPiDigit.toString())}`}</code>
+					<code>{`PI decimal length: ${numberFormatterWithCommas(serverPiDigit.toString())}`}</code>
 				</pre>
 			</div>
 

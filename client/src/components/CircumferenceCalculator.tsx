@@ -42,7 +42,7 @@ const CircumferenceCalculator = (): JSX.Element => {
 			<div className="flex flex-col">
 				<label className="pb-2 text-lg font-bold">Calculate Circumference</label>
 				<pre className="mb-2 flex items-center justify-center rounded-md bg-slate-200 p-1 text-sm">
-					<code>{`Server PI length: ${numberFormatterWithCommas(serverPiLength.toString())}`}</code>
+					<code>{`PI decimal length: ${numberFormatterWithCommas(serverPiLength.toString())}`}</code>
 				</pre>
 			</div>
 			<div className="flex flex-col items-center sm:flex-row">
