@@ -25,13 +25,13 @@ const AvatarWithDropDownMenu = ({ displayName }: AvatarWithDropDownMenuPropType)
 		setLoadingUpgradeButton(true)
 
 		try {
-			let response
 			if (isPaidUser) {
-				response = await downgradeUser()
+				const response = await downgradeUser()
+				setIsPaidUser(response.isPaidUser)
 			} else {
-				response = await upgradeUser()
+				const response = await upgradeUser()
+				setIsPaidUser(response.isPaidUser)
 			}
-			setIsPaidUser(response.isPaidUser)
 		} catch (e: any) {
 			console.log(e)
 		} finally {
