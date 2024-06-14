@@ -9,14 +9,6 @@ A simple PI and Circumference calculator app.
 - Calculate PI to the Nth decimal point precision.
 - Use that PI value to calculate the circumfrence of any given Radius.
 
-## Client side app flow diagram
-
-![alt text](https://github.com/zulhakim88/pi-calculator/blob/master/client/public/app-flow-diagram.png?raw=true)
-
-## Server side app flow diagram
-
-![alt text](https://github.com/zulhakim88/pi-calculator/blob/master/client/public/backend-flow-diagram.png?raw=true)
-
 ## The Journey
 
 ### Why PI?
@@ -83,3 +75,11 @@ Frontend: http://localhost:5173
 - I decided to use Node/Express as it's the easiest/fastest for me to start of with. Probably using a more robust/high performance languages like Rust or Go.
 - Write test for the implementation of both APIs and Frontend app.
 - Scalibility (Never really thought about it).
+
+## Client side app flow diagram
+
+![alt text](https://github.com/zulhakim88/pi-calculator/blob/master/client/public/app-flow-diagram.png?raw=true)
+
+## Server side app flow diagram
+
+![alt text](https://github.com/zulhakim88/pi-calculator/blob/master/client/public/backend-flow-diagram.png?raw=true)
