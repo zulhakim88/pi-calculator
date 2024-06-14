@@ -9,6 +9,10 @@ A simple PI and Circumference calculator app.
 - Calculate PI to the Nth decimal point precision.
 - Use that PI value to calculate the circumfrence of any given Radius.
 
+## Client side app flow diagram
+
+![alt text](https://github.com/zulhakim88/picalculator/blob/master/app-flow-diagram.png?raw=true)
+
 ## The Journey
 
 ### Why PI?
