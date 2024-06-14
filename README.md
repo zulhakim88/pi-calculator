@@ -13,6 +13,10 @@ A simple PI and Circumference calculator app.
 
 ![alt text](https://github.com/zulhakim88/pi-calculator/blob/master/client/public/app-flow-diagram.png?raw=true)
 
+## Server side app flow diagram
+
+![alt text](https://github.com/zulhakim88/pi-calculator/blob/master/client/public/backend-flow-diagram.png?raw=true)
+
 ## The Journey
 
 ### Why PI?
