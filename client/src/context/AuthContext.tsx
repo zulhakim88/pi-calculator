@@ -86,7 +86,6 @@ export const AuthContextProvider = ({ children }: ChildrenElementType) => {
 
 	useEffect(() => {
 		const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-			console.log("Check user status!")
 			if (!currentUser) {
 				localStorage.clear()
 				setLoading(false)
