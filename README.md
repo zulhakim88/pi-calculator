@@ -11,7 +11,7 @@ A simple PI and Circumference calculator app.
 
 ## Client side app flow diagram
 
-![alt text](https://github.com/zulhakim88/picalculator/blob/master/app-flow-diagram.png?raw=true)
+![alt text](https://github.com/zulhakim88/pi-calculator/blob/master/client/public/app-flow-diagram.png?raw=true)
 
 ## The Journey
 
