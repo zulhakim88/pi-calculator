@@ -12,6 +12,8 @@ const useFetchPi = () => {
 	}
 
 	const handleFetchClick = async () => {
+		if (loadingFetchButton) return
+
 		setLoadingFetchButton(true)
 		setServerPiDigit(0)
 		setPiValue("")

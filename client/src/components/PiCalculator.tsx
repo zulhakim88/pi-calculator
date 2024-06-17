@@ -1,7 +1,7 @@
-import { LoadingSpinnerSmall } from "../assets/svg"
 import Input from "./Input"
 import { numberFormatterWithCommas } from "../util"
 import useFetchPi from "./hooks/useFetchPi"
+import ButtonWithFetch from "./ButtonWithFetch"
 
 const PiCalculator = (): JSX.Element => {
 	const {
@@ -41,26 +41,11 @@ const PiCalculator = (): JSX.Element => {
 					/>
 				</div>
 				<div className="mb-1 mt-0 flex w-full flex-row sm:mb-0 sm:w-auto">
-					{loadingFetchButton ? (
-						<button
-							disabled
-							className="my-1 ml-0 flex h-[50px] w-full cursor-not-allowed items-center justify-center rounded-md border-blue-400 bg-blue-400 p-3 text-white sm:my-0 sm:ml-2 sm:w-[100px]"
-						>
-							<LoadingSpinnerSmall />
-						</button>
-					) : (
-						<button
-							onClick={handleFetchClick}
-							className="my-1 ml-0 h-[50px] w-full cursor-pointer rounded-md border-blue-400 bg-blue-400 p-3 text-white hover:bg-blue-600 sm:my-0 sm:ml-2 sm:w-[100px]"
-						>
-							Fetch
-						</button>
-					)}
+					<ButtonWithFetch loading={loadingFetchButton} onClick={handleFetchClick} />
 				</div>
 			</div>
 			<textarea
 				className="w-full resize-none overflow-x-hidden rounded-md border-2 border-solid border-gray-400 bg-gray-200 p-2 font-mono text-xs"
-				cols={100}
 				rows={8}
 				value={piValue}
 				disabled

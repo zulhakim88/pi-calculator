@@ -1,7 +1,7 @@
-import { LoadingSpinnerSmall } from "../assets/svg"
 import Input from "./Input"
 import { numberFormatterWithCommas } from "../util"
 import useFetchCircumference from "./hooks/useFetchCircumference"
+import ButtonWithFetch from "./ButtonWithFetch"
 
 const CircumferenceCalculator = (): JSX.Element => {
 	const {
@@ -33,21 +33,12 @@ const CircumferenceCalculator = (): JSX.Element => {
 					min={0}
 					required
 				/>
-				{loading ? (
-					<button
-						disabled
-						className="mb-2 ml-0 mt-1 flex h-[50px] w-full cursor-not-allowed items-center justify-center rounded-md border-blue-400 bg-blue-400 p-4 text-white sm:mb-0 sm:ml-2 sm:mt-0"
-					>
-						<LoadingSpinnerSmall />
-					</button>
-				) : (
-					<button
-						onClick={handleGetCircumference}
-						className="mb-2 ml-0 mt-1 flex h-[50px] w-full cursor-pointer items-center justify-center rounded-md border-blue-400 bg-blue-400 p-4 text-white hover:bg-blue-600 sm:mb-0 sm:ml-2 sm:mt-0"
-					>
-						Calculate
-					</button>
-				)}
+				<ButtonWithFetch
+					className={`mb-2 ml-0 mt-1 flex h-[50px] w-full items-center justify-center rounded-md border-blue-400 bg-blue-400 p-4 text-white ${!loading ? "cursor-pointer hover:bg-blue-600" : "cursor-wait"} sm:mb-0 sm:ml-2 sm:mt-0`}
+					loading={loading}
+					onClick={handleGetCircumference}
+					label="Calculate"
+				/>
 			</div>
 			<textarea
 				className="mt-1 w-full resize-none overflow-x-hidden rounded-md border-2 border-solid border-gray-400 bg-gray-200 p-2 font-mono text-xs"

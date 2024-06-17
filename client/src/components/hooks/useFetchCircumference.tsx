@@ -14,9 +14,12 @@ const useFetchCircumference = () => {
 	}
 
 	const handleGetCircumference = async () => {
+		if (loading) return
+
 		setLoading(true)
 		setServerPiLength(0)
 		setCircumference("")
+
 		const newRadius = radius ? parseInt(radius) : 0
 		if (newRadius === 0) {
 			setLoading(false)
