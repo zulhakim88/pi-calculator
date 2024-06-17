@@ -1,59 +1,17 @@
-import { useState } from "react"
-import { getLatestPi, getLatestPiWithPrecission } from "../services/api"
 import { LoadingSpinnerSmall } from "../assets/svg"
 import Input from "./Input"
 import { numberFormatterWithCommas } from "../util"
+import useFetchPi from "./hooks/useFetchPi"
 
 const PiCalculator = (): JSX.Element => {
-	const [piValue, setPiValue] = useState<string>("3.142")
-	const [loadingFetchButton, setLoadingFetchButton] = useState<boolean>(false)
-	// const [copied, setCopied] = useState<boolean>(false)
-	const [piDigit, setPiDigit] = useState<string>("")
-	const [serverPiDigit, setServerPiDigit] = useState<number>(0)
-
-	const handlePiPrecissionInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-		setPiDigit(e.target.value)
-	}
-
-	// const handleCopyClick = async () => {
-	// 	try {
-	// 		await navigator.clipboard.writeText(typeof piValue === "string" ? piValue : "")
-	// 		setCopied(true)
-	// 		setTimeout(() => {
-	// 			setCopied(false)
-	// 		}, 1000)
-	// 	} catch (e: any) {
-	// 		console.log(e)
-	// 	}
-	// }
-
-	const handleFetchClick = async () => {
-		setLoadingFetchButton(true)
-		setServerPiDigit(0)
-		setPiValue("")
-
-		if (piDigit) {
-			try {
-				const response = await getLatestPiWithPrecission(parseInt(piDigit))
-				setPiValue(response.pi)
-				setServerPiDigit(response.length)
-			} catch (e: any) {
-				console.log(e)
-			} finally {
-				setLoadingFetchButton(false)
-			}
-		} else {
-			try {
-				const response = await getLatestPi()
-				setPiValue(response.pi)
-				setServerPiDigit(response.length)
-			} catch (e: any) {
-				console.log(e)
-			} finally {
-				setLoadingFetchButton(false)
-			}
-		}
-	}
+	const {
+		handleFetchClick,
+		handlePiPrecissionInput,
+		loadingFetchButton,
+		piDigit,
+		piValue,
+		serverPiDigit,
+	} = useFetchPi()
 
 	return (
 		<>
@@ -83,18 +41,6 @@ const PiCalculator = (): JSX.Element => {
 					/>
 				</div>
 				<div className="mb-1 mt-0 flex w-full flex-row sm:mb-0 sm:w-auto">
-					{/* {copied ? (
-						<button className="mx-2 flex h-[50px] w-[100px] cursor-pointer items-center justify-center rounded-md bg-green-400 p-3 text-white hover:bg-green-500">
-							Copied!
-						</button>
-					) : (
-						<button
-							onClick={handleCopyClick}
-							className="mx-2 flex h-[50px] w-[100px] cursor-pointer items-center justify-center rounded-md bg-green-400 p-3 text-white hover:bg-green-500"
-						>
-							Copy
-						</button>
-					)} */}
 					{loadingFetchButton ? (
 						<button
 							disabled
