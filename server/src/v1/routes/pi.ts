@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.get("/pi", (req: Request, res: Response) => {
   const counter = parseInt(res.locals.counter);
-  const pi = piCalculator([counter]);
+  const pi = piCalculator(counter);
   res.status(200).send({ pi, length: pi.length - 2 });
 });
 
@@ -17,9 +17,9 @@ router.get("/pi/:digit", (req: Request, res: Response) => {
   let pi = "";
 
   if (digit <= counter) {
-    pi = piCalculator([digit]);
+    pi = piCalculator(digit);
   } else {
-    pi = piCalculator([isPaidUser ? digit : counter]);
+    pi = piCalculator(isPaidUser ? digit : counter);
   }
 
   return res.status(200).send({ pi, length: pi.length - 2 });

@@ -78,12 +78,12 @@ const calc_pi = (prec: bigint) => {
   return (Q * G) >> prec;
 };
 
-export const piCalculator = (args: [number]): string => {
+export const piCalculator = (args: number): string => {
   let r, n_digits, n_bits, out;
-  if (args.length < 1) {
+  if (args < 1) {
     return "";
   }
-  n_digits = args[0] | 0;
+  n_digits = args | 0;
 
   /* we add more bits to reduce the probability of bad rounding for
       the last digits */
